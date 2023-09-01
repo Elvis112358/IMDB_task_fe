@@ -1,0 +1,30 @@
+.mat-raised-button:not(.mat-button-disabled):active:not([class*=mat-elevation-z]) {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+
+}
+
+.mat-raised-button {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.dialog-close-btn {
+    background-color: #ac0001 !important;
+    color: #fff !important;
+}
+.dialog-save-btn, .save-btn {
+    background-color: rgb(3, 78, 3) !important;
+    color: #fff !important;
+    &:disabled {
+        background: #747474 !important;
+    }
+}
+
+.card-add-btn, .search-btn{
+    background-color: $primaryColor !important;
+    color: #fff !important;
+}
+
+.search-btn{
+    padding: 3px !important;
+}

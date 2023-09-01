@@ -1,0 +1,56 @@
+body .mat-card {
+    margin: 1rem;
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+    transition: all .4s ease 0s;
+}
+
+body .mat-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.mat-card-header {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.mat-card-header .mat-card-header-text {
+    width: 100%;
+    margin: 0;
+}
+
+
+.card-action-header h2,
+.card-date-filter h2 {
+    margin-bottom: 0.5rem;
+}
+
+.card-action-header button {
+    margin-top: -8px;
+}
+
+.card-date-filter .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    padding-bottom: .5rem;
+}
+
+.card-action-header h2 {
+    margin-bottom: 0;
+}
+
+.mat-card-content,
+.card-action-header {
+    padding: 1rem;
+}
+
+.card-action-header {
+    padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.card-action {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}

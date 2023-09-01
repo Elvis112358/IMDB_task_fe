@@ -1,0 +1,16 @@
+.data-group {
+    .data-group-header {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline;
+        margin-bottom: 1rem;
+        color: #333;
+        font-weight: 500;
+    }
+    hr {
+        display: inline;
+        margin-left: 0.5rem;
+        background-color: transparentize($color: $primaryColor, $amount: 0.3);
+        border: none;
+    }
+}

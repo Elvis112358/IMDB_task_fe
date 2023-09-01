@@ -1,0 +1,24 @@
+@import "@angular/material/theming";
+@include mat-core();
+$primary: mat-palette($mat-blue-grey, 800);
+$accent: mat-palette($mat-indigo, 800);
+$warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+$primary-dark: mat-palette($mat-blue-grey, 100);
+$accent-dark: mat-palette($mat-blue-grey, 300);
+$warn-dark: mat-palette($mat-red);
+$primaryColor: mat-color($primary);
+//buttons colors
+$theme-dark: mat-dark-theme($primary-dark, $accent-dark, $warn-dark);
+.dark-theme-mode {
+    @include angular-material-theme($theme-dark);
+}
+
+.dark-theme-mode .mat-drawer-container {
+    color: #b4b3b3;
+}
+
+.mat-drawer-container {
+    color: #7a7a7a;
+}

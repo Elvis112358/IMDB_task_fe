@@ -1,0 +1,19 @@
+//Theme colors
+$primaryColor: #1b252e;
+$secondaryColor:#3DB24D;
+$backgroundBoxColor:#718071;
+$lightColor:rgb(170, 169, 169);
+$darkColor:#333;
+$cardBorder:rgba(141, 141, 141, 0.3);
+$inputfontsize: .8rem;
+//Text colors
+$sidebarPrimaryColor: rgb(170, 169, 169);
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

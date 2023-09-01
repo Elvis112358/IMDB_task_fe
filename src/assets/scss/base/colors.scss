@@ -1,0 +1,100 @@
+//Text colors
+
+.text-primary {
+  color: $primaryColor;
+}
+.text-secondary {
+  color: $secondaryColor;
+}
+.text-light {
+  color: $lightColor;
+}
+.text-dark {
+  color: $darkColor;
+}
+.text-white {
+  color: #fff;
+}
+.text-success {
+  color: green;
+}
+.text-warning {
+  color: orangered;
+}
+.text-danger {
+  color: red;
+}
+
+.text-card-border {
+  color: $cardBorder;
+}
+
+.mat-text-warn {
+  color: red;
+}
+//Background colors
+
+.bg-primary {
+  background-color: $primaryColor !important;
+}
+.bg-secondary {
+  background-color: $secondaryColor;
+}
+.bg-tertiary {
+  background-color: $primaryColor;
+}
+.bg-light {
+  background-color: $lightColor;
+}
+.bg-dark {
+  background-color: $darkColor;
+}
+.bg-transparent {
+  background-color: transparent;
+}
+.bg-box-color {
+  background-color: $backgroundBoxColor;
+}
+.bg-white {
+  background-color: white;
+}
+.bg-success {
+  background-color: green;
+}
+.bg-warning {
+  background-color: orangered;
+}
+.bg-danger {
+  background-color: red;
+}
+
+//Border colors
+
+.border-success {
+  border: 1px solid green;
+}
+.border-warning {
+  border: 1px solid orangered;
+}
+.border-danger {
+  border: 1px solid red;
+}
+
+.green-bg {
+  background-color: #bcfaa4;
+}
+.red-bg {
+  background-color: #ff847c;
+}
+.yellow-bg {
+  background-color: #ffe78c;
+}
+.blue-bg {
+  background-color: #a6dcef;
+}
+.purple-bg {
+  background-color: #cea6ef;
+}
+.orange-bg {
+  background-color: #efc9a6;
+}

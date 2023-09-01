@@ -1,0 +1,68 @@
+@import "variables.scss";
+@import "colors.scss";
+@import "margin&padding.scss";
+@import "data-group.scss";
+
+a {
+    text-decoration: none;
+}
+
+.box-inset {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
+}
+
+.full-wid {
+    width: 100% !important;
+}
+
+.full-height {
+    height: 100% !important;
+}
+
+.right-align {
+    text-align: right !important;
+}
+
+button.mat-menu-item {
+    line-height: 30px;
+    height: 30px;
+    padding: 0 10px;
+}
+
+.white-space-normal {
+    .mat-step-label {
+        white-space: normal !important;
+    }
+}
+
+.divider {
+    height: 1px;
+    background-color: rgba(75, 75, 75, 0.7);
+    margin: 10px 0;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.container {
+    padding: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.main-content {
+    padding: 1rem 0;
+}
+
+.bold{
+    font-weight: 500;
+}
+
+.user-list{
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        background-color: transparent;
+    }
+}
