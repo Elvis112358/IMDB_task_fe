@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { UserNavigationItems, PermissionNavigationItems, RouterPageDescriptions } from './core/navigation-items';
 import { NavigationService } from './core/services/navigation.service';
@@ -6,7 +6,8 @@ import { NavigationService } from './core/services/navigation.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  // styleUrls: ['./app.component.scss']
+  // styleUrls: ['./app.component.scss'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'imdbFront';

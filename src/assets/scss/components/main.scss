@@ -12,7 +12,7 @@ mat-sidenav {
     width: 250px;
 }
 
-.mat-nav-list .mat-list-item .mat-list-item-content {
+.mat-mdc-list-item .mdc-list-item__content {
     width: 100%;
 }
 
@@ -20,7 +20,7 @@ mat-divider{
     background-color: rgb(255 255 255 / 12%) !important;
 }
 
-.mat-nav-list .mat-list-item .mat-list-item-content {
+.mat-mdc-list-item .mdc-list-item__content span {
     color: #e4e7ef;
     font-size: 0.9rem;
     outline: 0;
@@ -34,15 +34,12 @@ mat-divider{
     font-weight: 400;
 }
 
-.mat-nav-list .mat-list-item:hover {
-    background-color: darken($color: $primaryColor, $amount: 5%);
-}
-
-.mat-nav-list .mat-list-item .mat-list-item-content mat-icon {
+.mat-mdc-list-item .mdc-list-item__content span mat-icon {
     font-size: 1.2rem;
     margin-right: 0.75rem;
     padding-top: 2px;
     opacity: 0.5;
+    color: #e4e7ef;
 }
 
 mat-sidenav-content {
@@ -60,20 +57,25 @@ mat-sidenav-content {
     img {
         width: 70px;
     }
-}
+}  
 
 :host {
     display: flex;
     flex-direction: column;
     outline: none;
     width: 100%;
-    .mat-list-item.active {
-        background-color: $primaryColor;
-    }
+}
+
+.mat-mdc-list-item.active {
+    background-color: darken($color: $primaryColor, $amount: 5%);
+}
+
+app-menu-list {
+
     &:hover,
     &:focus {
-        >.mat-list-item:not(.expanded) {
-            background-color: darken($color: $primaryColor, $amount: 0) !important;
+        >.mat-mdc-list-item:not(.expanded) {
+            background-color: darken($color: $primaryColor, $amount: 5%) !important;
         }
     }
 }

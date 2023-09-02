@@ -1,0 +1,74 @@
+<lib-ngx-generic-table [data]='users' [totalElements]="records" [pageSize]="pageSize" [pagingType]="pagingType"
+    (pageChange)="pageChanged($event)" (sorting)="serverHandledSorting($event)"
+    (filtering)="serverHendledFiltering($event)">
+    <app-dg-column [field]="'name'" header="First Name" [width]="90" [minWidth]="80" [sortable]="true"
+        [textAlign]="'left'" [dataType]="FilterDataType.TEXT" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'surname'" header="Last Name" [width]="120" [sortable]="true" [textAlign]="'right'"
+        [dataType]="FilterDataType.TEXT" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'age'" header="Age" [width]="70" [minWidth]="25" [sortable]="true" [textAlign]="'left'"
+        [dataType]="FilterDataType.NUMBER" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'salary'" header="Salary" [width]="60" [sortable]="true" [textAlign]="'right'"
+        [fixed]="FixedPosition.LEFT" [dataType]="FilterDataType.NUMBER" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'department'" header="Deparment" [sortable]="true" [textAlign]="'center'" [width]="120"
+        [minWidth]="120" [dataType]="FilterDataType.SELECT" [selectFilterOptions]="departments"
+        [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'age'" [header]="'Information'" [width]="120" [dataType]="FilterDataType.NUMBER"
+        [filterOptOn]="true">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+            <div class="info">
+                <p>Employe Age {{rowData.age}}</p>
+                <div>
+                </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [header]="'Action'" [width]="120" [minWidth]="120">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData let-ri="rowIndex">
+            <div class="info" *ngIf="switch[ri]">
+                <p>Position {{rowData.position}}</p>
+                <div>
+                    <img src="{{rtnImageSrc(rowData.name)}}" alt="employee-image" (click)="seePosition(rowData)">
+                </div>
+            </div>
+            <div class="btn-continer" *ngIf="!switch[ri]">
+                <button class="test" (click)="seePosition(rowData)">
+                    See Position
+                </button>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [header]="'Years in Company'" [width]="100" [minWidth]="100" [fixed]="FixedPosition.RIGHT">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+            <div class="btn-continer">
+                <div>{{calculateDate(rowData.startDate, rowData.toDate) | number:'1.1-1'}} </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [header]="'Start Date'" [field]="'startDate'" [width]="120" [minWidth]="120"
+        [dataType]="FilterDataType.DATE" [filterOptOn]="true">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+            <div class="btn-continer">
+                <div>{{rowData.startDate | date}} </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [header]="'End Date'" [width]="90" [field]="'toDate'" [width]="120" [minWidth]="120"
+        [dataType]="FilterDataType.DATE" [filterOptOn]="true">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+            <div class="btn-continer">
+                <div>{{rowData.toDate | date}} </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <ng-template [template]="Template.NO_RESULT">
+        <div class="no-result">
+            <div>
+                <div class="no-result-title">Custom Template Provided in component implementation</div>
+                <div class="no-result-title">There is nothing here.</div>
+                <div class="no-result-subtitle">
+                    Try refreshing the page or changing your search.
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</lib-ngx-generic-table>
