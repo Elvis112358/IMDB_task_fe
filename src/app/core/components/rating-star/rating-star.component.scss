@@ -1,0 +1,14 @@
+.rating-star {
+    display: inline-block;
+}
+
+.rating-star mat-icon {
+    font-size: 24px;
+    color: #FFD700;
+    /* Star color */
+}
+
+.rating-star mat-icon.filled {
+    color: #F39C12;
+    /* Filled star color */
+}

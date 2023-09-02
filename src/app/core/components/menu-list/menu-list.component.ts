@@ -21,7 +21,6 @@ export class MenuListComponent {
    */
   onItemSelected(item: any) {
     if (item) {
-      debugger;
       this.router.navigate([item.route]);
       if (this.navigationService.sidenavMode == 'over')
         this.navigationService.isOpen = false;

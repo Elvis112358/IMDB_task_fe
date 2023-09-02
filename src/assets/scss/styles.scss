@@ -37,6 +37,8 @@ $imdb_task_fe-theme: mat.define-light-theme((
 //components
 @import "components/main.scss";
 
+@import "../../../node_modules/@elvis11235/ngx-generic-table/styles/styles.scss";
+
 html,
 body {
     height: 100%;

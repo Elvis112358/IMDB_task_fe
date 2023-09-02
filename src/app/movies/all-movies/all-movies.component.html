@@ -1,0 +1,52 @@
+<lib-ngx-generic-table [data]='users' [totalElements]="records" [pageSize]="pageSize" [pagingType]="pagingType"
+    (pageChange)="pageChanged($event)" (sorting)="serverHandledSorting($event)"
+    (filtering)="serverHendledFiltering($event)">
+    <app-dg-column [field]="'name'" header="Movie Name" [width]="80" [minWidth]="80" [sortable]="true"
+        [textAlign]="'left'" [dataType]="FilterDataType.TEXT" [filterOptOn]="true"></app-dg-column>
+
+    <app-dg-column [field]="'year'" header="Year" [width]="35" [minWidth]="35" [sortable]="true" [textAlign]="'left'"
+        [dataType]="FilterDataType.NUMBER" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'rating'" header="Rating" [width]="25" [minWidth]="25" [sortable]="true" [textAlign]="'left'"
+    [dataType]="FilterDataType.NUMBER" [filterOptOn]="true"></app-dg-column>
+    <app-dg-column  header="#"  [width]="25"[minWidth]="25" [sortable]="true" [textAlign]="'center'"
+        [fixed]="FixedPosition.LEFT" [dataType]="FilterDataType.NUMBER" [filterOptOn]="true">
+        <ng-template [appTableRow]="users" [template]="Template.BODY"  let-ri="rowIndex">
+            {{ri + 1}}
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [field]="'genre'" header="Genre" [sortable]="true" [textAlign]="'center'" [width]="120"
+        [minWidth]="120" [dataType]="FilterDataType.SELECT" [selectFilterOptions]="departments"
+        [filterOptOn]="true"></app-dg-column>
+    <app-dg-column [field]="'description'" [header]="'Information'" [width]="120"[minWidth]="120" [dataType]="FilterDataType.NUMBER"
+        [filterOptOn]="true">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+            <div class="info">
+                <p><b>About: </b> {{rowData.description}}</p>
+                <div>
+                </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [header]="'Action'" [width]="120" [minWidth]="120">
+        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData let-ri="rowIndex">
+            <div class="info">
+                <div>
+                    <img src="{{rowData.imageLink}}" alt="movie-image" (click)="seePosition(rowData)">
+                </div>
+            </div>
+        </ng-template>
+    </app-dg-column>
+    <app-dg-column [field]="'director'" [header]="'Director'" [width]="100" [minWidth]="100">
+    </app-dg-column>
+    <ng-template [template]="Template.NO_RESULT">
+        <div class="no-result">
+            <div>
+                <div class="no-result-title">Custom Template Provided in component implementation</div>
+                <div class="no-result-title">There is nothing here.</div>
+                <div class="no-result-subtitle">
+                    Try refreshing the page or changing your search.
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</lib-ngx-generic-table>

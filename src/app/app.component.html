@@ -23,12 +23,12 @@
           </div>
       </mat-sidenav>
       <mat-sidenav-content>
-          <div class="mrgn-b-md pdn-r-2 pdn-l-2 pdn-t-1">
+          <div class="mrgn-b-md pdn-r-2 pdn-l-2 pdn-t-1" style="display:flex;align-items: center;">
               <button class="mrgn-r-md" color="primary" data-title="'Menu'" (click)="sidenav.toggle()"
                   mat-raised-button mat-icon-button mat-button-sm>
                   <mat-icon>menu</mat-icon>
               </button>
-              <p class="mrgn-b-none mrgn-l-2 page">{{page}}</p>
+              <p class="mrgn-l-2 page">{{page}} Test</p>
               <div></div>
           </div>
           <router-outlet>

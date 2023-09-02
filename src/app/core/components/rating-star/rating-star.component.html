@@ -1,0 +1,3 @@
+<span class="rating-star">
+    <mat-icon *ngFor="let star of stars;let index" [ngClass]="{'filled': star <= rating - 5}" (click)="onStarsClick(index)">star</mat-icon>
+</span>

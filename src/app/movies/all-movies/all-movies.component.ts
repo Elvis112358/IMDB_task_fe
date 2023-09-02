@@ -4,11 +4,11 @@ import { User } from '../../core/interfaces/movies.interface';
 import { MoviesService } from '../movies.service';
 
 @Component({
-  selector: 'app-top-movies-table',
-  templateUrl: './top-movies-table.component.html',
-  styleUrls: ['./top-movies-table.component.scss']
+  selector: 'app-all-movies',
+  templateUrl: './all-movies.component.html',
+  styleUrls: ['./all-movies.component.scss']
 })
-export class TopMoviesTableComponent implements OnInit {
+export class AllMoviesComponent implements OnInit {
   Template = Template;
   users: any[] = [];
   // total Number of elements retrieved from BE SIDE
@@ -114,7 +114,7 @@ export class TopMoviesTableComponent implements OnInit {
 
   rtnImageSrc(name: string): string {
     const images = [
-      'assets/andale.png',
+      'andale.png',
       'assets/ilma.png',
       'assets/dzanke.png',
       'assets/elva.png'

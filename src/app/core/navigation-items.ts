@@ -3,7 +3,7 @@ export const UserNavigationItems = [
     {
         displayName: 'Top 10 Movies',
         iconName: 'movies',
-        route: 'movies'
+        route: 'top-movies'
     },
     {
         displayName: 'Add Movies',
@@ -33,12 +33,12 @@ export const PermissionNavigationItems = [
 
 export const RouterPageDescriptions = [
     {
-        url:'/permission/permissions',
-        text:'Permissions'
+        url:'all-movies',
+        text:'All Movies'
     },
     {
-        url:'/user/users',
-        text:'Users'
+        url:'top-movies',
+        text:'Top 10 Movies'
     },
     {
         url:'/user/add-user',

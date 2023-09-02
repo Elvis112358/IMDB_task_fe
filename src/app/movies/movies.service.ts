@@ -15,7 +15,7 @@ export class MoviesService {
   body = { observe: 'response' };
 
   async getUsers(queryData: TableDataQuery): Promise<any> {
-    let url = this.url + 'users';
+    let url = this.url + 'movies';
 
     if (queryData.currentPage && queryData.pageSize) {
       url =
