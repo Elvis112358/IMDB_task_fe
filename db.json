@@ -148,7 +148,7 @@
       "name": "The Green Mile",
       "year": "1999",
       "director": "Frank Darabont",
-      "imageLink": "assets/img/movie-logos/2.jpg.jpg",
+      "imageLink": "assets/img/movie-logos/2.jpg",
       "rating": 8.6,
       "genre": "drama",
       "description": "The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift."
@@ -157,7 +157,7 @@
       "name": "The Lion King",
       "year": "1994",
       "director": "Roger Allers, Rob Minkoff",
-      "imageLink": "assets/img/movie-logos/3.jpg.jpg",
+      "imageLink": "assets/img/movie-logos/3.jpg",
       "rating": 8.5,
       "genre": "animation",
       "description": "Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble."
@@ -181,5 +181,52 @@
       "description": "The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito in the Italian-American crime syndicate."
     }
 
+  ],
+  "tv-shows": [
+    {
+      "name": "Breaking Bad",
+      "year": "2008",
+      "creator": "Vince Gilligan",
+      "imageLink": "assets/img/movie-logos/1.jpg",
+      "rating": 9.5,
+      "genre": "crime",
+      "description": "A high school chemistry teacher turned methamphetamine manufacturing drug dealer teams up with a former student in the drug trade."
+    },
+    {
+      "name": "Game of Thrones",
+      "year": "2011",
+      "creators": "David Benioff, D.B. Weiss",
+      "imageLink": "assets/img/movie-logos/2.jpg",
+      "rating": 9.3,
+      "genre": "fantasy",
+      "description": "Nine noble families wage war against each other in the mythical lands of Westeros to gain control of the Iron Throne."
+    },
+    {
+      "name": "Stranger Things",
+      "year": "2016",
+      "creators": "The Duffer Brothers",
+      "imageLink": "assets/img/movie-logos/3.jpg",
+      "rating": 8.7,
+      "genre": "sci-fi",
+      "description": "In a small town where everyone knows everyone, a group of kids discovers a strange girl and a series of supernatural mysteries."
+    },
+    {
+      "name": "The Crown",
+      "year": "2016",
+      "creator": "Peter Morgan",
+      "imageLink": "assets/img/movie-logos/4.jpg",
+      "rating": 8.6,
+      "genre": "drama",
+      "description": "Follows the reign of Queen Elizabeth II and major events in British history."
+    },
+    {
+      "name": "Friends",
+      "year": "1994",
+      "creators": "David Crane, Marta Kauffman",
+      "imageLink": "assets/img/movie-logos/5.jpg",
+      "rating": 8.5,
+      "genre": "comedy",
+      "description": "Follows the lives of six friends living in New York City."
+    }
   ]
 }

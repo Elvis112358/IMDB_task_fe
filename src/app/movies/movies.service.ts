@@ -14,8 +14,8 @@ export class MoviesService {
   url = 'http://localhost:3000/';
   body = { observe: 'response' };
 
-  async getUsers(queryData: TableDataQuery): Promise<any> {
-    let url = this.url + 'movies';
+  async getData(queryData: TableDataQuery, urlString:   string = 'movies'): Promise<any> {
+    let url = this.url + urlString;
 
     if (queryData.currentPage && queryData.pageSize) {
       url =

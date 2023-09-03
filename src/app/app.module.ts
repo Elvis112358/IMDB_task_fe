@@ -18,6 +18,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpCustomInterceptor } from './core/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { RatingStarComponent } from './core/components/rating-star/rating-star.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RatingStarComponent } from './core/components/rating-star/rating-star.c
     AppRoutingModule,
     NgxGenericTableModule,
     MatProgressSpinnerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatButtonToggleModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

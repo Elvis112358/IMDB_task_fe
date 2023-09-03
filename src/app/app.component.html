@@ -29,6 +29,7 @@
                   <mat-icon>menu</mat-icon>
               </button>
               <p class="mrgn-l-2 page">{{page}} Test</p>
+              <mat-button-toggle (change)="onToggleChange($event)" value = "clicked" class="mrgn-l-2 " *ngIf="showToggle">Show Top 10 Series</mat-button-toggle> 
               <div></div>
           </div>
           <router-outlet>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Filter, FilterDataType, FixedPosition, PagingType, SelectFilterOptions, Sorting, TableDataQuery, Template } from '@elvis11235/ngx-generic-table';
 import { User } from '../../core/interfaces/movies.interface';
 import { MoviesService } from '../movies.service';
+import { NavigationService } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-top-movies-table',
@@ -10,53 +11,33 @@ import { MoviesService } from '../movies.service';
 })
 export class TopMoviesTableComponent implements OnInit {
   Template = Template;
-  users: any[] = [];
-  // total Number of elements retrieved from BE SIDE
-  // used to calculate visible pages for client side paging
-  records: number = 0;
+  movies: any[] = [];
+  tvShows?: any[]  = undefined;
+
   // SET SERVER OR CLIENT SIDE PAGINATION SORTING AND FILTERING
   pagingType: PagingType = PagingType.SERVER_SIDE;
   // SET PAGE SIZE FOR PAGINTAION
   pageSize: number = 10;
-
-  readonly FilterDataType = FilterDataType;
-  readonly FixedPosition = FixedPosition;
-  filterColumn: string | undefined = undefined;
-  filterValue: string | undefined = undefined;
-
   queryOptionsData: TableDataQuery = new TableDataQuery();
-  showUserInfo: boolean = true;
-  switch: Array<boolean> = [];
-  // for testing select filter values
-  departments: Array<SelectFilterOptions> = [
-    new SelectFilterOptions('dev', 'Dev'),
-    new SelectFilterOptions('qa', 'QA'),
-    new SelectFilterOptions('hr', 'HR'),
-    new SelectFilterOptions('pm', 'PM'),
-    new SelectFilterOptions('marketing', 'Marketing'),
-    new SelectFilterOptions('sales', 'Sales'),
-    new SelectFilterOptions('nonExisting', 'NonExisting'),
-  ];
+  showSeries = false;
 
-  constructor(private usersService: MoviesService) {}
+
+
+  constructor(private usersService: MoviesService, private navigationService:NavigationService) {}
 
   async ngOnInit(): Promise<void> {
     this.queryOptionsData.pageSize = this.pageSize;
     await this.getInitalUsers();
-    this.records = this.users.length;
-    this.resetSwitchState();
+    this.subscriveToTvShowsToggle();
   }
-
-  seePosition(user: User) {
-    this.switch[this.users.indexOf(user)] =
-      !this.switch[this.users.indexOf(user)];
-  }
-
-  resetSwitchState(): void {
-    this.switch = [];
-    for (let index = 0; index < this.pageSize; index++) {
-      this.switch.push(false);
-    }
+  
+  subscriveToTvShowsToggle(): void {
+    this.navigationService.showTop10Series.subscribe(async (value:boolean) => {
+      this.showSeries = value
+      if(!this.tvShows) {
+        await this.getTvShowData(this.queryOptionsData, 'tv-shows');
+      }
+    })
   }
 
   async getInitalUsers(pageNumber?: number, pageSize?: number): Promise<any> {
@@ -97,12 +78,27 @@ export class TopMoviesTableComponent implements OnInit {
   private async getUsersData(queryData: TableDataQuery): Promise<any> {
     return new Promise((resolve, reject) => {
       this.usersService
-        .getUsers(queryData)
+        .getData(queryData)
         .then((response) => {
           if (response) {
-            this.users = response.body;
-            if (response.headers.get('X-Total-Count'))
-              this.records = response.headers.get('X-Total-Count');
+            this.movies = response.body;
+          }
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+
+  private async getTvShowData(queryData: TableDataQuery, urlstring?: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.usersService
+        .getData(queryData, urlstring)
+        .then((response) => {
+          if (response) {
+            this.tvShows = response.body;
           }
           resolve(response);
         })

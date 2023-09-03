@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulati
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { UserNavigationItems, PermissionNavigationItems, RouterPageDescriptions } from './core/navigation-items';
 import { NavigationService } from './core/services/navigation.service';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ import { NavigationService } from './core/services/navigation.service';
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'imdbFront';
+  showToggle:boolean = false;
+  isToggleClicked = false;
   @ViewChild("sidenavContainer", { static: false })
   sideNavContainer!: MatSidenavContainer;
 
@@ -25,8 +28,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     //subscribe to router change so we can display "breadcrumb"
     this.navigationService.currentUrl.subscribe(value => {
-      if(value)
+      debugger
+      if(value) {
         this.page = this.pageDescriptions.find(x => value.includes(x.url))?.text;
+        //show toggle on TOP 10 MOVIES
+        this.showToggle = this.page === 'Top 10 Movies'
+      }
+
     });
   }
 
@@ -52,5 +60,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     //unsubscribe from navigation service to prevent memory leaks
     this.navigationService.currentUrl.unsubscribe();
+  }
+
+  onToggleChange(event: MatButtonToggleChange) {
+    debugger;
+    console.log('onToggleChange', event);
+    if(event.value === 'clicked') {
+      this.isToggleClicked = !this.isToggleClicked;
+      this.navigationService.showTop10Series.next(this.isToggleClicked);
+    }
   }
 }

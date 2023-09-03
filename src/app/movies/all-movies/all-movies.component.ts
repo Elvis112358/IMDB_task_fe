@@ -97,7 +97,7 @@ export class AllMoviesComponent implements OnInit {
   private async getUsersData(queryData: TableDataQuery): Promise<any> {
     return new Promise((resolve, reject) => {
       this.usersService
-        .getUsers(queryData)
+        .getData(queryData)
         .then((response) => {
           if (response) {
             this.users = response.body;

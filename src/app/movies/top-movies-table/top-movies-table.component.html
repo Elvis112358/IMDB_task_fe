@@ -1,40 +1,59 @@
-<lib-ngx-generic-table [data]='users' [totalElements]="records" [pageSize]="pageSize" [pagingType]="pagingType"
-    (pageChange)="pageChanged($event)" (sorting)="serverHandledSorting($event)"
-    (filtering)="serverHendledFiltering($event)">
-    <app-dg-column [header]="'Movies'" [width]="120" [minWidth]="120"  [dataType]="FilterDataType.NUMBER"
-        [filterOptOn]="false">
-        <ng-template [appTableRow]="users" [template]="Template.BODY" let-rowData>
+<div style="overflow: auto;
+height: 100%;">
+    <div *ngIf="!showSeries && movies" class="movies-container">
+        <h2 class="title">MOVIES</h2>
+        <div *ngFor="let user of movies">
             <div class="movie-card">
-                <img class="movie-poster" src="{{rowData.imageLink}}" alt="Movie Poster">
+                <img class="movie-poster" src="{{user.imageLink}}" alt="Movie Poster">
                 <div class="movie-details">
-                    <div>
-                        <h2 class="movie-title">{{rowData.name | titlecase}}</h2>
+                    <div class="title-wrapper">
+                        <h2 class="movie-title">{{user.name | titlecase}}</h2>
                         <div class="movie-rating-container">
-                            <span class="movie-rating">{{rowData.rating}}</span>
-                            <app-rating-star [rating]="rowData.rating"></app-rating-star>
+                            <span class="movie-rating">{{user.rating}}</span>
+                            <app-rating-star [rating]="user.rating"></app-rating-star>
                         </div>
                     </div>
-                    <p class="movie-info">
-                        <span class="movie-year">{{rowData.year}}</span>
-                        <span class="movie-genre">{{rowData.genre}}</span>
-                      
-                    </p>
-                    <p class="movie-description">
-                        {{rowData.description}}
-                    </p>
-                </div>
-            </div>
-        </ng-template>
-    </app-dg-column>
-    <ng-template [template]="Template.NO_RESULT">
-        <div class="no-result">
-            <div>
-                <div class="no-result-title">Custom Template Provided in component implementation</div>
-                <div class="no-result-title">There is nothing here.</div>
-                <div class="no-result-subtitle">
-                    Try refreshing the page or changing your search.
+                    <div class="details-wrapper">
+                        <p class="movie-info">
+                            <span class="movie-year">{{user.year}}</span>
+                            <span class="movie-genre">{{user.genre}}</span>
+    
+                        </p>
+                        <p class="movie-description">
+                            {{user.description}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </ng-template>
-</lib-ngx-generic-table>
+    </div>
+
+    <div *ngIf="showSeries" style="overflow: auto;
+    height: 100%;">
+        <h2 class="title">TV SHOWS</h2>
+        <div *ngFor="let tvShow of tvShows">
+            <div class="movie-card">
+                <img class="movie-poster" src="{{tvShow.imageLink}}" alt="Movie Poster">
+                <div class="movie-details">
+                    <div class="title-wrapper">
+                        <h2 class="movie-title">{{tvShow.name | titlecase}}</h2>
+                        <div class="movie-rating-container">
+                            <span class="movie-rating">{{tvShow.rating}}</span>
+                            <app-rating-star [rating]="tvShow.rating"></app-rating-star>
+                        </div>
+                    </div>
+                    <div class="details-wrapper">
+                        <p class="movie-info">
+                            <span class="movie-year">{{tvShow.year}}</span>
+                            <span class="movie-genre">{{tvShow.genre}}</span>
+    
+                        </p>
+                        <p class="movie-description">
+                            {{tvShow.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

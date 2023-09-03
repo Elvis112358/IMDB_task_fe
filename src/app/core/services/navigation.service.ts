@@ -11,6 +11,7 @@ export class NavigationService {
   public isOpen:boolean = true;
   public appDrawer: any;
   public currentUrl = new BehaviorSubject<string | undefined>(undefined);
+  public showTop10Series = new BehaviorSubject<boolean>(false);
   sidenavMode : MatDrawerMode = 'side';
   
   constructor(private router: Router) {
