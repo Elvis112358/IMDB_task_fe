@@ -19,6 +19,8 @@ import { HttpCustomInterceptor } from './core/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { RatingStarComponent } from './core/components/rating-star/rating-star.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     NgxGenericTableModule,
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    FormsModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

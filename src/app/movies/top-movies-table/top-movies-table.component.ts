@@ -1,87 +1,189 @@
-import { Component, OnInit } from '@angular/core';
-import { Filter, FilterDataType, FixedPosition, PagingType, SelectFilterOptions, Sorting, TableDataQuery, Template } from '@elvis11235/ngx-generic-table';
-import { User } from '../../core/interfaces/movies.interface';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  Filter,
+  PagingType,
+  Sorting,
+  TableDataQuery,
+} from '@elvis11235/ngx-generic-table';
 import { MoviesService } from '../movies.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { fromEvent, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-top-movies-table',
   templateUrl: './top-movies-table.component.html',
-  styleUrls: ['./top-movies-table.component.scss']
+  styleUrls: ['./top-movies-table.component.scss'],
 })
-export class TopMoviesTableComponent implements OnInit {
-  Template = Template;
+export class TopMoviesTableComponent implements OnInit, AfterViewInit {
   movies: any[] = [];
-  tvShows?: any[]  = undefined;
+  searchedMovies: any[] = [];
+  tvShows?: any[] = undefined;
+  searchedTvShow?: any[] = [];
+  records: number = 10;
+  searchKeyTerms: Array<string> = [
+    'stars',
+    'least',
+    'less',
+    'more than',
+    'after',
+    'older than',
+  ];
 
-  // SET SERVER OR CLIENT SIDE PAGINATION SORTING AND FILTERING
-  pagingType: PagingType = PagingType.SERVER_SIDE;
-  // SET PAGE SIZE FOR PAGINTAION
-  pageSize: number = 10;
   queryOptionsData: TableDataQuery = new TableDataQuery();
   showSeries = false;
+  searchDebounceTime = 300;
+  @ViewChild('input') input!: ElementRef;
 
-
-
-  constructor(private usersService: MoviesService, private navigationService:NavigationService) {}
+  constructor(
+    private usersService: MoviesService,
+    private navigationService: NavigationService
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.queryOptionsData.pageSize = this.pageSize;
-    await this.getInitalUsers();
+    await this.getInitalMovies();
+    this.searchedMovies = [...this.movies];
+    this.searchedMovies
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, this.records);
     this.subscriveToTvShowsToggle();
   }
-  
+
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged())
+      .subscribe((res: any) => {
+        console.log('res', res.target.value);
+        this.movieSearch(res.target.value);
+      });
+  }
+
   subscriveToTvShowsToggle(): void {
-    this.navigationService.showTop10Series.subscribe(async (value:boolean) => {
-      this.showSeries = value
-      if(!this.tvShows) {
+    this.navigationService.showTop10Series.subscribe(async (value: boolean) => {
+      if (this.input.nativeElement && this.showSeries !== value) {
+        this.input.nativeElement.value = '';
+      }
+      this.showSeries = value;
+      if (!this.tvShows) {
         await this.getTvShowData(this.queryOptionsData, 'tv-shows');
       }
-    })
+      if (this.tvShows && this.showSeries)
+        this.searchedTvShow = [
+          ...this.tvShows
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, this.records),
+        ];
+      else
+        this.searchedMovies = [
+          ...this.movies
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, this.records),
+        ];
+    });
   }
 
-  async getInitalUsers(pageNumber?: number, pageSize?: number): Promise<any> {
-    this.queryOptionsData.setPageSize(pageSize);
-    this.queryOptionsData.setCurrentPage(pageNumber);
-    await this.getUsersData(this.queryOptionsData);
-    if (this.pagingType === PagingType.SERVER_SIDE) {
-      // apply paging for first page
-      await this.pageChanged(1);
+  movieSearch(searchTerm: string) {
+    // clientSideSearch
+    console.log('this.movies', this.movies);
+    if (!this.showSeries) {
+      this.searchedMovies = [
+        ...this.movies
+          .filter((movie) => {
+            return (
+              Object.values(movie).some((value: any) => {
+                value = value.toString();
+                return value.toLowerCase().includes(searchTerm);
+              }) || this.filterByGenericTerms(searchTerm, movie)
+            );
+          })
+          .sort((a, b) => b.rating - a.rating)
+          .slice(0, this.records),
+      ];
+    } else {
+      if (this.tvShows) {
+        this.searchedTvShow = [
+          ...this.tvShows
+            .filter((movie) =>{
+              return (
+                Object.values(movie).some((value: any) => {
+                  value = value.toString();
+                  return value.toLowerCase().includes(searchTerm);
+                }) || this.filterByGenericTerms(searchTerm, movie)
+              );
+            }
+            )
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, this.records),
+        ];
+      }
     }
   }
 
-  //in case of server side paging we emit event on pageChanged
-  async pageChanged(currentPage: number): Promise<void> {
-    this.queryOptionsData.setCurrentPage(currentPage);
-    this.getUsersData(this.queryOptionsData);
+  async getInitalMovies(pageNumber?: number, pageSize?: number): Promise<any> {
+    await this.getMoviesData(this.queryOptionsData);
   }
 
-  serverHandledSorting(sortData: Sorting) {
-    this.queryOptionsData.setSorting(sortData);
-    this.getUsersData(this.queryOptionsData);
-  }
+  filterByGenericTerms(searchTerm: string, movie: any) {
+    const regex = /\d+/; // Matches one or more digits
+    if (this.searchKeyTerms.some((term) => searchTerm.includes(term))) {
+      if (searchTerm.includes(this.searchKeyTerms[0])) {
+        const match = searchTerm.match(regex);
 
-  serverHendledFiltering(filterData: Filter) {
-    this.queryOptionsData.setCurrentPage(1);
-    if (filterData && Array.isArray(filterData.value)) {
-      const tempArray = filterData.value.map((date) => {
-        if (date instanceof Date && !isNaN(date.getTime())) {
-          return date.toISOString();
-        } else return date.toString();
-      });
-      filterData.value = tempArray;
+        if (match) {
+          const number = parseInt(match[0], 10); // Convert the matched string to an integer
+          return movie.rating === number;
+        }
+      } else if (
+        searchTerm.includes(this.searchKeyTerms[1]) ||
+        searchTerm.includes(this.searchKeyTerms[2])
+      ) {
+        const match = searchTerm.match(regex);
+        if (match) {
+          const number = parseInt(match[0], 10); // Convert the matched string to an integer
+          return movie.rating < number;
+        }
+      } else if (searchTerm.includes(this.searchKeyTerms[3])) {
+        const match = searchTerm.match(regex);
+        if (match) {
+          const number = parseInt(match[0], 10); // Convert the matched string to an integer
+          return movie.rating > number;
+        }
+      } else if (searchTerm.includes(this.searchKeyTerms[4])) {
+        const match = searchTerm.match(regex);
+        if (match) {
+          const number = parseInt(match[0], 10); // Convert the matched string to an integer
+          return movie.year > number;
+        }
+      } else if (searchTerm.includes(this.searchKeyTerms[5])) {
+        const match = searchTerm.match(regex);
+        if (match) {
+          const number = parseInt(match[0], 10); // Convert the matched string to an integer
+          return movie.year < number;
+        }
+      }
     }
-    this.queryOptionsData.setFiltering(filterData);
-    this.getUsersData(this.queryOptionsData);
+    return false;
   }
 
-  private async getUsersData(queryData: TableDataQuery): Promise<any> {
+  onSearchTermChange(newValue: string) {
+    // This method will be called whenever the input value changes.
+    console.log('Search term changed:', newValue);
+    // You can perform any actions or logic here.
+  }
+
+  private async getMoviesData(queryData: TableDataQuery): Promise<any> {
     return new Promise((resolve, reject) => {
       this.usersService
         .getData(queryData)
         .then((response) => {
           if (response) {
             this.movies = response.body;
+            console.log('responseMovies', this.movies);
           }
           resolve(response);
         })
@@ -91,8 +193,10 @@ export class TopMoviesTableComponent implements OnInit {
     });
   }
 
-
-  private async getTvShowData(queryData: TableDataQuery, urlstring?: string): Promise<any> {
+  private async getTvShowData(
+    queryData: TableDataQuery,
+    urlstring?: string
+  ): Promise<any> {
     return new Promise((resolve, reject) => {
       this.usersService
         .getData(queryData, urlstring)
@@ -107,26 +211,8 @@ export class TopMoviesTableComponent implements OnInit {
         });
     });
   }
-
-  rtnImageSrc(name: string): string {
-    const images = [
-      'assets/andale.png',
-      'assets/ilma.png',
-      'assets/dzanke.png',
-      'assets/elva.png'
-    ];
-    const randomIndex = Math.floor(Math.random() * images.length);
-    return images[randomIndex];
-
+  showMoreRecords(): void {
+    this.records += 10;
+    this.movieSearch('');
   }
-
-  calculateDate(startDate: Date, endDate: Date): number {
-    const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
-    const diffInMilliseconds = Math.abs(
-      new Date(endDate).getTime() - new Date(startDate)?.getTime()
-    );
-    let daysBetween = Math.round(diffInMilliseconds / oneDay);
-    return daysBetween / 365;
-  }
-
 }

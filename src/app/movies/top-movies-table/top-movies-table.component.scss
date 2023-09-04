@@ -117,14 +117,54 @@ body {
   -webkit-box-orient: vertical;
 }
 
-.movies-container {
-  overflow-y: scroll;
-  height: 100%;
-}
-
 .title {
   position: sticky;
   padding: 10px;
-  top: 0px;
+  top: -10px;
   background: #fafafa;
+}
+
+
+.search-container {
+  display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    padding: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.search-icon {
+  color: gray;
+}
+
+/* Style the input field as needed */
+input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px;
+  background: none;
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #007bff;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.top-movie-wrapper {
+  margin: 0 10px 10px 10px;
+  padding-bottom: 30px;
+}
+
+.container {
+  text-align: center;
+  a {
+    text-decoration: underline;
+  }
 }

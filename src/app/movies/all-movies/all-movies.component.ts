@@ -15,7 +15,7 @@ export class AllMoviesComponent implements OnInit {
   // used to calculate visible pages for client side paging
   records: number = 0;
   // SET SERVER OR CLIENT SIDE PAGINATION SORTING AND FILTERING
-  pagingType: PagingType = PagingType.SERVER_SIDE;
+  pagingType: PagingType = PagingType.CLIENT_SIDE;
   // SET PAGE SIZE FOR PAGINTAION
   pageSize: number = 10;
 
@@ -112,15 +112,11 @@ export class AllMoviesComponent implements OnInit {
     });
   }
 
-  rtnImageSrc(name: string): string {
-    const images = [
-      'andale.png',
-      'assets/ilma.png',
-      'assets/dzanke.png',
-      'assets/elva.png'
-    ];
-    const randomIndex = Math.floor(Math.random() * images.length);
-    return images[randomIndex];
+  rateMovies(newRating:any, ratedMovie: any) {
+    console.log('ratedMovie', ratedMovie);
+    console.log('his.users.find(movie=> movie.name === ratedMovie.name)', this.users.find(movie=> movie.name === ratedMovie.name).rating)
+    this.users.find(movie=> movie.name === ratedMovie.name).rating = newRating;
+    console.log('his.users.find(movie=> movie.name === ratedMovie.name)', this.users.find(movie=> movie.name === ratedMovie.name).rating)
 
   }
 
