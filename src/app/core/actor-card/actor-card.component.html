@@ -1,0 +1,13 @@
+<div class="actor-card">
+    <div class="actor-image">
+        <img src="assets/img/actors/brat-pitt.webp" alt="Actor Name">
+    </div>
+    <div class="actor-details">
+        <h2>{{ actor?.name }}</h2>
+        <p>Year of Birth: {{ actor?.yearOfBirth}}</p>
+        <p>Oscars Won: {{ actor?.oscarsWon }}</p>
+        <ul class="actor-movies">
+            <li *ngFor="let movie of actor?.movies">{{movie}}</li>
+        </ul>
+    </div>
+</div>

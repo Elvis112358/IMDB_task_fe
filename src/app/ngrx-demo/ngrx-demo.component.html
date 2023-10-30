@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>Most famous actors</h1>
+    <div class="actor-list">     
+        <div *ngFor=" let actor of actors$ | async">
+            <app-actor-card [actor]="actor"></app-actor-card>
+        </div>
+    </div>
+</div>

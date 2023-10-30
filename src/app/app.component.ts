@@ -62,6 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onToggleChange(event: MatButtonToggleChange) {
+    console.log('onToggleChange', event);
     if(event.value === 'clicked') {
       this.isToggleClicked = !this.isToggleClicked;
       this.navigationService.showTop10Series.next(this.isToggleClicked);

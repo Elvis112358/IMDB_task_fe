@@ -1,0 +1,10 @@
+.container {
+    background-color: #e0e0e0;
+    width: auto;
+    height:auto;
+    .actor-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}

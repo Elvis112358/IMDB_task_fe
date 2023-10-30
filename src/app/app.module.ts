@@ -21,11 +21,14 @@ import { RatingStarComponent } from './core/components/rating-star/rating-star.c
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
-
 import { MovieDetailsComponent } from './core/components/movie-details/movie-details.component';
 import { ReactionComponent } from './core/components/reaction/reaction.component';
 import { StoreModule } from '@ngrx/store';
 import { CounterReducer } from './movies/store/counter/counter.reducer';
+import { NgrxDemoComponent } from './ngrx-demo/ngrx-demo.component';
+import { ActorCardComponent } from './core/actor-card/actor-card.component';
+import { actorsReducer } from './ngrx-demo/state/actor.reducers';
+import { castReducer } from './ngrx-demo/state/cast.reducer';
 
 
 @NgModule({
@@ -39,9 +42,12 @@ import { CounterReducer } from './movies/store/counter/counter.reducer';
     FavMoviesComponent,
     ReactionComponent,
     MovieDetailsComponent,
+    NgrxDemoComponent,
+    ActorCardComponent,
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({ actors: actorsReducer, cast: castReducer,counter: CounterReducer  }),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -52,8 +58,7 @@ import { CounterReducer } from './movies/store/counter/counter.reducer';
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
     MatButtonToggleModule,
-    FormsModule,
-    StoreModule.forRoot({ counter: CounterReducer })
+    FormsModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

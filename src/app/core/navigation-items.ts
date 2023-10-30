@@ -24,6 +24,11 @@ export const UserNavigationItems = [
         displayName: 'Favorite Movies',
         iconName: 'star',
         route: 'fav-movies'
+    },
+    {
+        displayName: 'NGRX test',
+        iconName: 'rocket',
+        route: 'ngrx-demo'
     }
 ];
 

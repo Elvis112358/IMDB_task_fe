@@ -1,0 +1,45 @@
+.actor-card {
+    background-color: #232323; /* Dark gray background */
+    border: 1px solid #3a3a3a; /* Slightly lighter border for contrast */
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    margin: 16px;
+    color: #e0e0e0; /* Light gray text for readability on dark background */
+}
+
+.actor-image img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 16px;
+    border: 2px solid #3a3a3a; /* Border around the image for better distinction */
+}
+
+.actor-details {
+    flex: 1;
+}
+
+.actor-details h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #f5c518; /* IMDb's signature yellow color for the actor's name */
+}
+
+.actor-details p {
+    margin-bottom: 8px;
+}
+
+.actor-movies {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.actor-movies li {
+    margin-bottom: 4px;
+    font-style: italic; /* Italicize movie names for distinction */
+}
