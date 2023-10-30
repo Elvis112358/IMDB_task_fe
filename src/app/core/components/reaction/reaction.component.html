@@ -1,0 +1,20 @@
+<div class="rate-container">
+    <div class="multiple-watches-box" *ngIf="false">
+        <span> Add to Favorites</span>
+        <div class="like-dislike-btn">
+            <button class="favorite-button">
+                <i class="material-icons">favorite</i>
+            </button>
+        </div>
+    </div>
+    <div class="multiple-watches-box">
+        <span>Multiple Times Watched</span>
+        <div class="like-dislike-btn">
+            
+            <button class="favorite-button">
+                <i class="material-icons" (click)="incrementCounter()">thumb_up</i></button>
+            <button class="favorite-button">
+                <i class="material-icons" (click)="decrementCounter()">thumb_down</i></button>
+        </div>
+    </div>
+</div>

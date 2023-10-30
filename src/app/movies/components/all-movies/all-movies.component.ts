@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Filter, FilterDataType, FixedPosition, PagingType, SelectFilterOptions, Sorting, TableDataQuery, Template } from '@elvis11235/ngx-generic-table';
-import { User } from '../../core/interfaces/movies.interface';
-import { MoviesService } from '../movies.service';
+import { User } from '../../../core/interfaces/common.interface';
+import { MoviesService } from '../../movies.service';
 
 @Component({
   selector: 'app-all-movies',

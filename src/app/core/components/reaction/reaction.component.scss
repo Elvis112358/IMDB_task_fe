@@ -1,0 +1,32 @@
+.favorite-button {
+    background-color: #007ACC;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .favorite-button:hover {
+    background-color: #005B95;
+  }
+
+  .rate-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .multiple-watches-box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd; /* Add a border to the box */
+    padding: 10px; /* Adjust the padding to your preference */
+    margin: 10px 0; /* Adjust the margin to create spacing between boxes */
+    .like-dislike-btn {
+        display: flex;
+        justify-content: space-evenly;
+    }
+  }

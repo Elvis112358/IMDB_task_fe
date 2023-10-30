@@ -1,0 +1,9 @@
+.fav-movie-container {
+    display:flex;
+    flex-direction: column;
+    .movie-deatils-rate-container {
+        border: 1px solid #ddd; /* Add a border to the box */
+        padding: 10px; /* Adjust the padding to your preference */
+        margin: 10px 0; /* Adjust the margin to create spacing between boxes */
+    }
+}

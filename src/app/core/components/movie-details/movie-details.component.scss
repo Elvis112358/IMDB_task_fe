@@ -1,0 +1,86 @@
+/* Styles for the movie card container */
+.movie-card {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for the movie poster image */
+  .movie-poster {
+    width: 100px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  /* Styles for movie details section */
+  .movie-details {
+    flex-grow: 1;
+    .title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .movie-rating-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .details-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 13px;
+      padding-right: 13px;
+    }
+  
+  }
+  
+  /* Styles for movie title */
+  .movie-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for movie information (year, genre, rating) */
+  .movie-info {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for individual movie information elements */
+  .movie-year,
+  .movie-genre,
+  .movie-rating {
+    margin-right: 10px;
+  }
+  
+  /* Styles for movie description */
+  .movie-description {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: #333;
+    margin-bottom: 5px;
+    max-height: 36px;
+    height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .title {
+    position: sticky;
+    padding: 10px;
+    top: -10px;
+    background: #fafafa;
+  }

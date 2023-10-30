@@ -1,0 +1,22 @@
+<div class="top-movie-wrapper">
+    <mat-form-field class="search-container">
+        <mat-icon matSuffix class="search-icon">search</mat-icon>
+        <input matInput placeholder="Search"  #input>
+      </mat-form-field>
+    <div *ngIf="!showSeries && movies">
+        <h2 class="title">MOVIES</h2>
+        <div *ngFor="let movie of searchedMovies">
+            <app-movie-details [movie]="movie"></app-movie-details>
+        </div>
+    </div>
+
+    <div *ngIf="showSeries">
+        <h2 class="title">TV SHOWS</h2>
+        <div *ngFor="let tvShow of searchedTvShow">
+            <app-movie-details [movie]="tvShow"></app-movie-details>
+        </div>
+    </div>
+    <div class="container" *ngIf="movies">
+        <a class="show-more" (click)="showMoreRecords()">Show 10 More !</a>
+    </div>
+</div>

@@ -2,6 +2,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../core/services/api.service';
 import { Filter, RequestMethod, TableDataQuery } from '@elvis11235/ngx-generic-table';
+import { Observable } from 'rxjs';
+import { Movie } from '../core/interfaces/common.interface';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -9,7 +12,7 @@ import { Filter, RequestMethod, TableDataQuery } from '@elvis11235/ngx-generic-t
 })
 export class MoviesService {
 
-  constructor(protected api: ApiService) {}
+  constructor(protected api: ApiService, private http: HttpClient) {}
 
   url = 'http://localhost:3000/';
   body = { observe: 'response' };
@@ -82,5 +85,9 @@ export class MoviesService {
       } else filterParam = filterParam + filterParamDate;
     }
     return filterParam;
+  }
+
+  public getFavoriteMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(`${this.url}fav-movies`);
   }
 }

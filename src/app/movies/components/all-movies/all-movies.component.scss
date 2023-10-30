@@ -54,6 +54,11 @@ html, body {
         top: 0px;
         background: #fff;
       }
+      ::ng-deep .filter-section {
+        position: sticky;
+        top: 16px;
+        background: #fff;
+      }
     }
     ::ng-deep .no-result-container {
       height: calc(100vh - 350px);

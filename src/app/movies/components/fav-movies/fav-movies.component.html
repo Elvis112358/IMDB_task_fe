@@ -1,0 +1,9 @@
+<div class="fav-movie-container">
+    <div *ngFor="let movie of favMovies$ | async">
+        <div class="movie-deatils-rate-container">
+            <app-movie-details [movie]="movie"></app-movie-details>
+            <app-reaction-component></app-reaction-component>
+            <div> {{ counter$ | async }}</div>
+        </div>
+    </div>
+</div>

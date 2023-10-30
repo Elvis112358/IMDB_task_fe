@@ -21,3 +21,21 @@ export class User {
     }
   
   }
+
+export interface Movie {
+  name: string;
+  year: string;
+  creators: string;
+  imageLink: string;
+  rating: number;
+  genre: string;
+  description: string;
+}
+
+export interface CounterState {
+  count: number;
+}
+
+export interface AppState {
+  counter: CounterState;
+}

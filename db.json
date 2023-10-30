@@ -399,5 +399,79 @@
       "genre": "comedy",
       "description": "Follows the lives of six friends living in New York City."
     }
+  ],
+  "fav-movies": [
+    {
+      "name": "Shawshank's Redemption",
+      "year": "1994",
+      "director": "Frank Darabont",
+      "imageLink": "assets/img/movie-logos/1.jpg",
+      "rating": 9.3,
+      "genre": "thriller",
+      "description": "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion."
+    },
+    {
+      "name": "The Godfather",
+      "year": "1972",
+      "director": "Francis Ford Coppola",
+      "imageLink": "assets/img/movie-logos/2.jpg",
+      "rating": 9.2,
+      "genre": "crime",
+      "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
+    },
+    {
+      "name": "Pulp Fiction",
+      "year": "1994",
+      "director": "Quentin Tarantino",
+      "imageLink": "assets/img/movie-logos/3.jpg",
+      "rating": 8.9,
+      "genre": "crime",
+      "description": "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption."
+    },
+    {
+      "name": "The Dark Knight",
+      "year": "2008",
+      "director": "Christopher Nolan",
+      "imageLink": "assets/img/movie-logos/4.jpg",
+      "rating": 9.0,
+      "genre": "action",
+      "description": "When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham. The Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+    },
+    {
+      "name": "Forrest Gump",
+      "year": "1994",
+      "director": "Robert Zemeckis",
+      "imageLink": "assets/img/movie-logos/5.jpg",
+      "rating": 8.8,
+      "genre": "drama",
+      "description": "The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart."
+    },
+    {
+      "name": "The Matrix",
+      "year": "1999",
+      "director": "The Wachowskis",
+      "imageLink": "assets/img/movie-logos/1.jpg",
+      "rating": 8.7,
+      "genre": "action",
+      "description": "A computer programmer discovers that reality as he knows it is a simulation created by machines to subjugate humanity."
+    },
+    {
+      "name": "Inception",
+      "year": "2010",
+      "director": "Christopher Nolan",
+      "imageLink": "assets/img/movie-logos/2.jpg",
+      "rating": 8.8,
+      "genre": "action",
+      "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+    },
+    {
+      "name": "Schindler's List",
+      "year": "1993",
+      "director": "Steven Spielberg",
+      "imageLink": "assets/img/movie-logos/3.jpg",
+      "rating": 8.9,
+      "genre": "biography",
+      "description": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis."
+    }
   ]
 }

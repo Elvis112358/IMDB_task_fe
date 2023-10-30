@@ -11,7 +11,7 @@ import {
   Sorting,
   TableDataQuery,
 } from '@elvis11235/ngx-generic-table';
-import { MoviesService } from '../movies.service';
+import { MoviesService } from '../../movies.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
 import { fromEvent, debounceTime, distinctUntilChanged } from 'rxjs';
 

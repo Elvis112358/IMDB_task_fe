@@ -1,0 +1,24 @@
+<div class="movie-container">
+    <div class="movie-card">
+        <img class="movie-poster" src="{{movie.imageLink}}" alt="Movie Poster">
+        <div class="movie-details">
+            <div class="title-wrapper">
+                <h2 class="movie-title">{{movie.name | titlecase}}</h2>
+                <div class="movie-rating-container">
+                    <span class="movie-rating">{{movie.rating}}</span>
+                    <app-rating-star [rating]="movie.rating"></app-rating-star>
+                </div>
+            </div>
+            <div class="details-wrapper">
+                <p class="movie-info">
+                    <span class="movie-year">{{movie.year}}</span>
+                    <span class="movie-genre">{{movie.genre}}</span>
+
+                </p>
+                <p class="movie-description">
+                    {{movie.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

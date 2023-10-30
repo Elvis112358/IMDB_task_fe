@@ -8,18 +8,24 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MenuListComponent } from './core/components/menu-list/menu-list.component';
 import { MatIconModule } from '@angular/material/icon';
-import { TopMoviesTableComponent } from './movies/top-movies-table/top-movies-table.component';
+import { TopMoviesTableComponent } from './movies/components/top-movies-table/top-movies-table.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxGenericTableModule } from '@elvis11235/ngx-generic-table';
-import { AllMoviesComponent } from './movies/all-movies/all-movies.component';
+import { AllMoviesComponent } from './movies/components/all-movies/all-movies.component';
 import { SpinnerOverlayComponent } from './core/components/spinner-overlay/spinner-overlay.component';
 import { SpinnerService } from './core/services/spinner.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpCustomInterceptor } from './core/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { RatingStarComponent } from './core/components/rating-star/rating-star.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
+
+import { MovieDetailsComponent } from './core/components/movie-details/movie-details.component';
+import { ReactionComponent } from './core/components/reaction/reaction.component';
+import { StoreModule } from '@ngrx/store';
+import { CounterReducer } from './movies/store/counter/counter.reducer';
 
 
 @NgModule({
@@ -30,6 +36,9 @@ import { FormsModule } from '@angular/forms';
     AllMoviesComponent,
     SpinnerOverlayComponent,
     RatingStarComponent,
+    FavMoviesComponent,
+    ReactionComponent,
+    MovieDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +52,8 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
     MatButtonToggleModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({ counter: CounterReducer })
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

@@ -19,6 +19,11 @@ export const UserNavigationItems = [
         displayName: 'All Movies',
         iconName: 'movies',
         route: 'all-movies'
+    },
+    {
+        displayName: 'Favorite Movies',
+        iconName: 'star',
+        route: 'fav-movies'
     }
 ];
 

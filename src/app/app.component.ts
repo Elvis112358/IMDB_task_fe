@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     //subscribe to router change so we can display "breadcrumb"
     this.navigationService.currentUrl.subscribe(value => {
-      debugger
       if(value) {
         this.page = this.pageDescriptions.find(x => value.includes(x.url))?.text;
         //show toggle on TOP 10 MOVIES
@@ -63,8 +62,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onToggleChange(event: MatButtonToggleChange) {
-    debugger;
-    console.log('onToggleChange', event);
     if(event.value === 'clicked') {
       this.isToggleClicked = !this.isToggleClicked;
       this.navigationService.showTop10Series.next(this.isToggleClicked);
