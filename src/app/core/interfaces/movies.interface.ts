@@ -21,3 +21,12 @@ export class User {
     }
   
   }
+
+  export interface Actor {
+    id: number;
+    name: string;
+    imageUrl: string;
+    yearOfBirth: number;
+    oscarsWon: number;
+    movies: string[];
+}

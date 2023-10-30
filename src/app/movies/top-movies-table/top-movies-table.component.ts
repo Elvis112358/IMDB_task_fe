@@ -41,7 +41,7 @@ export class TopMoviesTableComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input!: ElementRef;
 
   constructor(
-    private usersService: MoviesService,
+    private moviesService: MoviesService,
     private navigationService: NavigationService
   ) {}
 
@@ -178,7 +178,7 @@ export class TopMoviesTableComponent implements OnInit, AfterViewInit {
 
   private async getMoviesData(queryData: TableDataQuery): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.usersService
+      this.moviesService
         .getData(queryData)
         .then((response) => {
           if (response) {
@@ -198,7 +198,7 @@ export class TopMoviesTableComponent implements OnInit, AfterViewInit {
     urlstring?: string
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.usersService
+      this.moviesService
         .getData(queryData, urlstring)
         .then((response) => {
           if (response) {

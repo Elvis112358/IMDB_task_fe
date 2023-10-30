@@ -351,7 +351,6 @@
       "genre": "crime",
       "description": "Violence and mayhem ensue after a hunter stumbles upon a drug deal gone wrong and more than two million dollars in cash near the Rio Grande."
     }
-    
   ],
   "tv-shows": [
     {
@@ -398,6 +397,173 @@
       "rating": 8.5,
       "genre": "comedy",
       "description": "Follows the lives of six friends living in New York City."
+    }
+  ],
+  "actors": [
+    {
+      "id": 1,
+      "name": "Leonardo DiCaprio",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Leonardo_DiCaprio_2016.jpg",
+      "yearOfBirth": 1974,
+      "oscarsWon": 1,
+      "movies": [
+        "Inception",
+        "The Revenant",
+        "Titanic",
+        "The Wolf of Wall Street"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Meryl Streep",
+      "imageUrl": "path-to-meryl-image.jpg",
+      "yearOfBirth": 1949,
+      "oscarsWon": 3,
+      "movies": [
+        "The Iron Lady",
+        "Sophie's Choice",
+        "Kramer vs. Kramer",
+        "The Devil Wears Prada"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Tom Hanks",
+      "imageUrl": "path-to-tom-image.jpg",
+      "yearOfBirth": 1956,
+      "oscarsWon": 2,
+      "movies": [
+        "Forrest Gump",
+        "Philadelphia",
+        "Cast Away",
+        "Saving Private Ryan"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Natalie Portman",
+      "imageUrl": "path-to-natalie-image.jpg",
+      "yearOfBirth": 1981,
+      "oscarsWon": 1,
+      "movies": ["Black Swan", "V for Vendetta", "The Professional", "Jackie"]
+    },
+    {
+      "id": 5,
+      "name": "Denzel Washington",
+      "imageUrl": "path-to-denzel-image.jpg",
+      "yearOfBirth": 1954,
+      "oscarsWon": 2,
+      "movies": ["Training Day", "Glory", "Fences", "Malcolm X"]
+    },
+    {
+      "id": 6,
+      "name": "Cate Blanchett",
+      "imageUrl": "path-to-cate-image.jpg",
+      "yearOfBirth": 1969,
+      "oscarsWon": 2,
+      "movies": ["Blue Jasmine", "The Aviator", "Carol", "Elizabeth"]
+    },
+    {
+      "id": 7,
+      "name": "Morgan Freeman",
+      "imageUrl": "path-to-morgan-image.jpg",
+      "yearOfBirth": 1937,
+      "oscarsWon": 1,
+      "movies": [
+        "Million Dollar Baby",
+        "The Shawshank Redemption",
+        "Se7en",
+        "Driving Miss Daisy"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Julia Roberts",
+      "imageUrl": "path-to-julia-image.jpg",
+      "yearOfBirth": 1967,
+      "oscarsWon": 1,
+      "movies": [
+        "Erin Brockovich",
+        "Pretty Woman",
+        "My Best Friend's Wedding",
+        "Runaway Bride"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Brad Pitt",
+      "imageUrl": "path-to-brad-image.jpg",
+      "yearOfBirth": 1963,
+      "oscarsWon": 1,
+      "movies": [
+        "Fight Club",
+        "12 Monkeys",
+        "Once Upon a Time in Hollywood",
+        "The Big Short"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Kate Winslet",
+      "imageUrl": "path-to-kate-image.jpg",
+      "yearOfBirth": 1975,
+      "oscarsWon": 1,
+      "movies": [
+        "Titanic",
+        "The Reader",
+        "Eternal Sunshine of the Spotless Mind",
+        "Revolutionary Road"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Robert De Niro",
+      "imageUrl": "path-to-robert-image.jpg",
+      "yearOfBirth": 1943,
+      "oscarsWon": 2,
+      "movies": [
+        "Raging Bull",
+        "The Godfather Part II",
+        "Taxi Driver",
+        "Goodfellas"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Nicole Kidman",
+      "imageUrl": "path-to-nicole-image.jpg",
+      "yearOfBirth": 1967,
+      "oscarsWon": 1,
+      "movies": ["The Hours", "Moulin Rouge!", "Eyes Wide Shut", "The Others"]
+    },
+    {
+      "id": 13,
+      "name": "Johnny Depp",
+      "imageUrl": "path-to-johnny-image.jpg",
+      "yearOfBirth": 1963,
+      "oscarsWon": 0,
+      "movies": [
+        "Pirates of the Caribbean",
+        "Edward Scissorhands",
+        "Finding Neverland",
+        "Sweeney Todd"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Charlize Theron",
+      "imageUrl": "path-to-charlize-image.jpg",
+      "yearOfBirth": 1975,
+      "oscarsWon": 1,
+      "movies": ["Monster", "Mad Max: Fury Road", "Atomic Blonde", "Tully"]
+    },
+    {
+      "id": 15,
+      "name": "Charlize Theron",
+      "imageUrl": "path-to-charlize-image.jpg",
+      "yearOfBirth": 1975,
+      "oscarsWon": 1,
+      "movies": ["Monster", "Mad Max: Fury Road", "Atomic Blonde", "Tully"]
     }
   ]
 }

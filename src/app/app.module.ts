@@ -20,6 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { RatingStarComponent } from './core/components/rating-star/rating-star.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { NgrxDemoComponent } from './ngrx-demo/ngrx-demo.component';
+import { ActorCardComponent } from './core/actor-card/actor-card.component';
+import { StoreModule } from '@ngrx/store';
+import { actorsReducer } from './ngrx-demo/state/actor.reducers';
+import { castReducer } from './ngrx-demo/state/cast.reducer';
 
 
 @NgModule({
@@ -30,9 +35,12 @@ import { FormsModule } from '@angular/forms';
     AllMoviesComponent,
     SpinnerOverlayComponent,
     RatingStarComponent,
+    NgrxDemoComponent,
+    ActorCardComponent,
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({ actors: actorsReducer, cast: castReducer  }),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,

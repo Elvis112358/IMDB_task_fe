@@ -19,6 +19,11 @@ export const UserNavigationItems = [
         displayName: 'All Movies',
         iconName: 'movies',
         route: 'all-movies'
+    },
+    {
+        displayName: 'NGRX test',
+        iconName: 'rocket',
+        route: 'ngrx-demo'
     }
 ];
 
