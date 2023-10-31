@@ -27,8 +27,10 @@ import { StoreModule } from '@ngrx/store';
 import { CounterReducer } from './movies/store/counter/counter.reducer';
 import { NgrxDemoComponent } from './ngrx-demo/ngrx-demo.component';
 import { ActorCardComponent } from './core/actor-card/actor-card.component';
-import { actorsReducer } from './ngrx-demo/state/actor.reducers';
-import { castReducer } from './ngrx-demo/state/cast.reducer';
+import { actorsReducer } from './ngrx-demo/store/actor.reducers';
+import { castReducer } from './ngrx-demo/store/cast.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ActorsEffects } from './ngrx-demo/store/actor.effects';
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { castReducer } from './ngrx-demo/state/cast.reducer';
     MatProgressSpinnerModule,
     ToastrModule.forRoot(),
     MatButtonToggleModule,
-    FormsModule
+    FormsModule,
+    EffectsModule.forRoot([ActorsEffects]),
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

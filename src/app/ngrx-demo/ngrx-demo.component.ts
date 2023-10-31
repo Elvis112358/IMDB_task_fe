@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { selectActorCollection, selectActors } from './state/actor.selectors';
-import { ActorActions, ActorsApiActions } from './state/actor.actions';
+import { selectActorCollection, selectActors } from './store/actor.selectors';
+import { ActorActions, ActorsApiActions } from './store/actor.actions';
 import { ActorsService } from './services/actors.service';
 import { Store } from '@ngrx/store';
 
@@ -16,14 +16,7 @@ export class NgrxDemoComponent {
   constructor(private actorsService: ActorsService, private store: Store) {}
  
   ngOnInit() {
-    this.actorsService
-      .getActors()
-      .subscribe((actors) => {
-        console.log('actors', actors);
-        return this.store.dispatch(ActorsApiActions.retrievedActorsList({ actors }));
-      }
-      
-      );
+    this.store.dispatch(ActorsApiActions.retrieveActorsList())
   }
 
   onAdd(actorId: number) {

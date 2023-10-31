@@ -15,6 +15,8 @@ export class ActorCardComponent implements OnInit,OnChanges{
   ngOnInit(): void {
     console.log('actor', this.actor);
   }
-  
+  onRemove(actor?: Actor) {
+    console.log('clicked', actor)
+  }
 
 }

@@ -1,14 +1,47 @@
 .actor-card {
-    background-color: #232323; /* Dark gray background */
-    border: 1px solid #3a3a3a; /* Slightly lighter border for contrast */
+    background-color: #232323;
+    /* Dark gray background */
+    border: 1px solid #3a3a3a;
+    /* Slightly lighter border for contrast */
     border-radius: 8px;
     padding: 16px;
     display: flex;
     align-items: center;
     width: 400px;
     margin: 16px;
-    color: #e0e0e0; /* Light gray text for readability on dark background */
+    color: #e0e0e0;
+    position: relative;
+    &:hover {
+        transform: scale(1.05);
+        /* Slightly scale up the card */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        /* Add shadow for depth */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Smooth transition for the hover effect */
+        .trash-can {
+            display: block;
+            color: #e0e0e0;
+            &:hover {
+                color:red
+            }
+        }
+    }
+
+    .trash-can {
+        display: none;
+        font-size: 24px;
+        /* Icon size */
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #e0e0e0;
+        /* Color of the icon */
+        // background: transparent;
+        border: none;
+        cursor: pointer;
+    }
 }
+
 
 .actor-image img {
     border-radius: 50%;
@@ -16,8 +49,10 @@
     height: 100px;
     object-fit: cover;
     margin-right: 16px;
-    border: 2px solid #3a3a3a; /* Border around the image for better distinction */
+    border: 2px solid #3a3a3a;
+    /* Border around the image for better distinction */
 }
+
 
 .actor-details {
     flex: 1;
@@ -26,7 +61,8 @@
 .actor-details h2 {
     font-size: 20px;
     margin-bottom: 8px;
-    color: #f5c518; /* IMDb's signature yellow color for the actor's name */
+    color: #f5c518;
+    /* IMDb's signature yellow color for the actor's name */
 }
 
 .actor-details p {
@@ -41,5 +77,6 @@
 
 .actor-movies li {
     margin-bottom: 4px;
-    font-style: italic; /* Italicize movie names for distinction */
+    font-style: italic;
+    /* Italicize movie names for distinction */
 }
