@@ -1,0 +1,45 @@
+<div class="form-container">
+    <button mat-icon-button class="close-button" aria-label="Close dialog" (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+    </button>
+    
+    <form [formGroup]="actorForm">
+        <mat-form-field>
+            <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+        <!-- Image URL Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="imageUrl" placeholder="Image URL">
+        </mat-form-field>
+    
+        <!-- Year of Birth Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Year of Birth</mat-label>
+            <input matInput formControlName="yearOfBirth" placeholder="Year of Birth" type="number">
+        </mat-form-field>
+    
+        <!-- Oscars Won Field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Oscars Won</mat-label>
+            <input matInput formControlName="oscarsWon" placeholder="Oscars Won" type="number">
+        </mat-form-field>
+    
+        <!-- Movies List -->
+        <div formArrayName="movies">
+            <div *ngFor="let movie of movies().controls; let i = index" [formGroupName]="i">
+                <mat-form-field appearance="fill">
+                    <mat-label>Movie {{i + 1}}</mat-label>
+                    <input matInput formControlName="name" placeholder="Movie Name">
+                </mat-form-field>
+                <button mat-mini-fab color="warn" (click)="removeMovie(i)">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
+        </div>
+        <button mat-mini-fab color="primary" (click)="addMovie()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button mat-button (click)="onSubmit()">Add Actor</button>
+    </form>
+</div>

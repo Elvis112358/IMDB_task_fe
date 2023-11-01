@@ -1,0 +1,75 @@
+/* Overall form layout */
+.add-actor-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form fields */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Style for the movie list section */
+.movies-list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Individual movie item styles */
+.movie-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.movie-item mat-form-field {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+/* Button styles */
+button {
+    margin-right: 10px;
+}
+
+/* Submit button specific style */
+.submit-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Colors and typography to match IMDb style */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+}
+
+/* Color adjustments for buttons */
+button.mat-mini-fab {
+    background-color: #f5c518;
+    color: black;
+}
+
+button.mat-raised-button {
+    background-color: #f5c518;
+    color: black;
+}
+
+/* Error message styling */
+.error-message {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+.form-container {
+    margin:20px;
+}

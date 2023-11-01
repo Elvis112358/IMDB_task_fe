@@ -23,12 +23,12 @@
           </div>
       </mat-sidenav>
       <mat-sidenav-content>
-          <div class="mrgn-b-md pdn-r-2 pdn-l-2 pdn-t-1" style="display:flex;align-items: center;">
-              <button class="mrgn-r-md" color="primary" data-title="'Menu'" (click)="sidenav.toggle()"
+          <div style="height: 30px;">
+              <button style="position: absolute;" color="primary" data-title="'Menu'" (click)="sidenav.toggle()"
                   mat-raised-button mat-icon-button mat-button-sm>
                   <mat-icon>menu</mat-icon>
               </button>
-              <p class="mrgn-l-2 page">{{page}} Test</p>
+              <!-- <p class="mrgn-l-2 page">{{page}} Test</p> -->
               <mat-button-toggle (change)="onToggleChange($event)" value = "clicked" class="mrgn-l-2 " *ngIf="showToggle">Show Top 10 Series</mat-button-toggle> 
               <div></div>
           </div>

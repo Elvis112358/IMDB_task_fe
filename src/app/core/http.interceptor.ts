@@ -28,7 +28,7 @@ export class HttpCustomInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse) => {
                 //send error data to rollbar and display message to user
                 // const rollbar = this.injector.get(RollbarService);
-                this.toast.error(error.error.message ?? error.message);
+                // this.toast.error(error.error.message ?? error.message);
                 // rollbar.error(new Error(error.message).stack);
                 //if not found redirect to not found page
                 if(error.status === 404)

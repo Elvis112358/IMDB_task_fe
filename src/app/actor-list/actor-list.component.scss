@@ -1,0 +1,35 @@
+.container {
+    background-color: #e0e0e0;
+    width: auto;
+    height: auto;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 3px solid #f5c518;
+        padding-bottom: 20px;
+
+        .add-actor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+            cursor: pointer;
+            background-color: #232323;
+            border-radius: 20px;
+            width: 35px;
+            height: 110px;
+
+            mat-icon {
+                color: #f5c518;
+            }
+        }
+    }
+
+    .actor-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}

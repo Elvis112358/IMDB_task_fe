@@ -1,5 +1,10 @@
 <div class="container">
-    <h1>Most famous actors</h1>
+    <div class="header">
+        <h1>Most famous actors</h1>
+        <div class="add-actor">
+            <mat-icon class="trash-can" (click)="onAdd()" >add_circle</mat-icon>
+        </div>
+    </div>
     <div class="actor-list">     
         <div *ngFor=" let actor of actors$ | async">
             <app-actor-card [actor]="actor"></app-actor-card>

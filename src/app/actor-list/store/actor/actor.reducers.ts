@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { ActorsApiActions } from './actor.actions';
-import { Actor } from 'src/app/core/interfaces/common.interface';
+import { initialState } from './actor.state';
 
 
-export const initialState: ReadonlyArray<Actor> = [];
+
 
 export const actorsReducer = createReducer(
   initialState,
-  on(ActorsApiActions.retrievedActorsList, (_state, { actors }) => {
+  on(ActorsApiActions.getActorsListSucess, (_state, { actors }) => {
     console.log('teeest', actors);
     return actors;
   })

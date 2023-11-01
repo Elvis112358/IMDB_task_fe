@@ -19,18 +19,21 @@ import { HttpCustomInterceptor } from './core/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { RatingStarComponent } from './core/components/rating-star/rating-star.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
 import { MovieDetailsComponent } from './core/components/movie-details/movie-details.component';
 import { ReactionComponent } from './core/components/reaction/reaction.component';
 import { StoreModule } from '@ngrx/store';
 import { CounterReducer } from './movies/store/counter/counter.reducer';
-import { NgrxDemoComponent } from './ngrx-demo/ngrx-demo.component';
-import { ActorCardComponent } from './core/actor-card/actor-card.component';
-import { actorsReducer } from './ngrx-demo/store/actor.reducers';
-import { castReducer } from './ngrx-demo/store/cast.reducer';
+// import { castReducer } from './actor-list/store/cast.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ActorsEffects } from './ngrx-demo/store/actor.effects';
+import { ActorListComponent } from './actor-list/actor-list.component';
+import { actorsReducer } from './actor-list/store/actor/actor.reducers';
+import { ActorsEffects } from './actor-list/store/actor/actor.effects';
+import { MatDialogModule } from '@angular/material/dialog';
+import { notificationReducer } from './actor-list/store/notification/notification.reducer';
+import { AddActorFormComponent } from './actor-list/core/add-actor-form/add-actor-form.component';
+import { ActorCardComponent } from './actor-list/core/actor-card/actor-card.component';
 
 
 @NgModule({
@@ -44,15 +47,17 @@ import { ActorsEffects } from './ngrx-demo/store/actor.effects';
     FavMoviesComponent,
     ReactionComponent,
     MovieDetailsComponent,
-    NgrxDemoComponent,
+    ActorListComponent,
     ActorCardComponent,
+    AddActorFormComponent,
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ actors: actorsReducer, cast: castReducer,counter: CounterReducer  }),
+    StoreModule.forRoot({ actors: actorsReducer,counter: CounterReducer, notification: notificationReducer  }),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatDialogModule,
     MatListModule,
     MatIconModule,
     AppRoutingModule,
@@ -62,6 +67,7 @@ import { ActorsEffects } from './ngrx-demo/store/actor.effects';
     MatButtonToggleModule,
     FormsModule,
     EffectsModule.forRoot([ActorsEffects]),
+    ReactiveFormsModule 
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

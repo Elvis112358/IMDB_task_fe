@@ -2,7 +2,11 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulati
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { UserNavigationItems, PermissionNavigationItems, RouterPageDescriptions } from './core/navigation-items';
 import { NavigationService } from './core/services/navigation.service';
+import { Store } from '@ngrx/store';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { selectNotifications } from './actor-list/store/notification/notification.selectors';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   isToggleClicked = false;
   @ViewChild("sidenavContainer", { static: false })
   sideNavContainer!: MatSidenavContainer;
-
+  notifications$ = this.store.select(selectNotifications);
   userNavigationItems = UserNavigationItems;
   permissionNavigationItems = PermissionNavigationItems;
 
@@ -24,7 +28,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   public page: string | undefined;
 
   constructor(
-    public navigationService: NavigationService
+    public navigationService: NavigationService,
+    private store: Store,
+    private toast: ToastrService
   ) {
     //subscribe to router change so we can display "breadcrumb"
     this.navigationService.currentUrl.subscribe(value => {
@@ -47,6 +53,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.navigationService.sidenavMode = 'over';
       this.navigationService.isOpen = false;
     }
+    this.notifications$.subscribe((err: HttpErrorResponse) => { this.toast.error(err.error.message ?? err.message)})
   }
 
   ngAfterViewInit() {

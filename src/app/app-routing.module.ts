@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TopMoviesTableComponent } from './movies/components/top-movies-table/top-movies-table.component';
 import { AllMoviesComponent } from './movies/components/all-movies/all-movies.component';
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
-import { NgrxDemoComponent } from './ngrx-demo/ngrx-demo.component';
+import { ActorListComponent } from './actor-list/actor-list.component';
 
 const routes: Routes = [
   {
@@ -23,8 +23,8 @@ const routes: Routes = [
     path:'fav-movies',
     component: FavMoviesComponent
   }, {
-    path:'ngrx-demo',
-    component: NgrxDemoComponent
+    path:'actor-list',
+    component: ActorListComponent
   }
   // {
   //   path: 'sorting',
