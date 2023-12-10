@@ -21,6 +21,7 @@ export class ActorListComponent {
  
   ngOnInit() {
     this.store.dispatch(ActorsApiActions.getActorsList());
+    this.subscribeToSubjectAndBehaviorSubject();
   }
 
   onAdd() {
@@ -31,6 +32,17 @@ export class ActorListComponent {
 
   onRemove(actorId: number) {
     this.store.dispatch(ActorActions.removeActor({ actorId }));
+  }
+
+  subscribeToSubjectAndBehaviorSubject(): void {
+    console.log('subscribeToSubjectAndBehaviorSubject-actor-list');
+    this.actorsService.testSubject$.subscribe(test => console.log('testSubject', test));
+    this.actorsService.testBehaviourSubject$.subscribe(test => console.log('testBehaviourSubject', test));
+  }
+
+  updateSubjectBehaviourSubject() {
+    this.actorsService.updateSubject('updateSubject - actor List');
+    this.actorsService.updateBehaviorSubject('updateBehaviorSubject - Actor List');
   }
 
  

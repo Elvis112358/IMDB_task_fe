@@ -4,6 +4,7 @@
         <div class="add-actor">
             <mat-icon class="trash-can" (click)="onAdd()" >add_circle</mat-icon>
         </div>
+        <button><mat-icon class="trash-can" (click)="updateSubjectBehaviourSubject()" >add_circle</mat-icon></button>
     </div>
     <div class="actor-list">     
         <div *ngFor=" let actor of actors$ | async">

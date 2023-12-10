@@ -7,6 +7,7 @@ import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { selectNotifications } from './actor-list/store/notification/notification.selectors';
+import { ActorsService } from './actor-list/services/actors.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public navigationService: NavigationService,
     private store: Store,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private actorsService: ActorsService
   ) {
     //subscribe to router change so we can display "breadcrumb"
     this.navigationService.currentUrl.subscribe(value => {
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.navigationService.isOpen = false;
     }
     this.notifications$.subscribe((err: HttpErrorResponse) => { this.toast.error(err.error.message ?? err.message)})
+    this.subscribeToSubjectAndBehaviorSubject()
   }
 
   ngAfterViewInit() {
@@ -66,6 +69,17 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     //unsubscribe from navigation service to prevent memory leaks
     this.navigationService.currentUrl.unsubscribe();
+  }
+
+  subscribeToSubjectAndBehaviorSubject(): void {
+    console.log('subscribeToSubjectAndBehaviorSubject-appComponent');
+    this.actorsService.testSubject$.subscribe(test => console.log('testSubject', test));
+    this.actorsService.testBehaviourSubject$.subscribe(test => console.log('testBehaviourSubject', test));
+  }
+
+  updateSubjectBehaviourSubject() {
+    this.actorsService.updateSubject('updateSubject');
+    this.actorsService.updateBehaviorSubject('updateBehaviorSubject');
   }
 
   onToggleChange(event: MatButtonToggleChange) {
