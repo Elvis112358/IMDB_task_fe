@@ -1,9 +1,8 @@
-<ng-container *ngFor="let banner of banners$ | async as banners; let i = index">
+<div class="container">
     <app-banner
-        *ngIf="(activeIndex$ | async) == i"
-        [banner]="banner"
-        (onPageChange)="onPageChange($event, banners)"
-        [index]="i"
-        [showControls]="banners.length > 1 || true">
+        [banner]="(banner$ | async) || defaultBanner"
+        [index]="currentBannerIndex"
+        (onPageChange)="onPageChange($event)"
+        [showControls]="!!(banners$ |async)?.length || false">
     </app-banner>
-</ng-container>
+<div>

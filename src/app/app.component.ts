@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.navigationService.sidenavMode = 'over';
       this.navigationService.isOpen = false;
     }
-    this.notifications$.subscribe((err: HttpErrorResponse) => { this.toast.error(err.error.message ?? err.message)})
+    this.notifications$.subscribe((err: HttpErrorResponse) => { this.toast.error(err?.error?.message ?? err?.message)})
     this.subscribeToSubjectAndBehaviorSubject()
   }
 
