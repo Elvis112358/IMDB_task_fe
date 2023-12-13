@@ -1,6 +1,11 @@
 //user related items
 export const UserNavigationItems = [
     {
+        displayName: 'Marketing',
+        iconName: 'movies',
+        route: 'banners'
+    },
+    {
         displayName: 'Top 10 Movies',
         iconName: 'movies',
         route: 'top-movies'

@@ -54,3 +54,19 @@ export interface Actor {
   oscarsWon: number;
   movies: string[];
 }
+
+export interface Banner {
+    active: boolean;
+    buttonText: string;
+    id: string;
+    scope: string;
+    scopeId: string;
+    subtitle?: string | undefined;
+    title: string;
+    type: string;
+    url: string;
+    validFrom: Date;
+    validTo: Date;
+    version: number;
+    image: string;
+}

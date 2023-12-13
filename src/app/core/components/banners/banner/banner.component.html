@@ -1,0 +1,22 @@
+<div class="banner-container">
+    <div class="banner-content">
+        <img class="banner-image" [src]="banner.image" alt="">
+        <div class="banner-text">
+            <h1 [innerHtml]="banner.title" class="text-3xl md:text-5xl !leading-[4rem] font-semibold">
+            </h1>
+        </div>
+        <div *ngIf="banner?.buttonText" class="banner-btn">
+            <button light-button>
+                {{ banner.buttonText }}
+            </button>
+        </div>
+        <div *ngIf="showControls" class="banner-controls">
+            <div (click)="onPageChange.emit(index+1)">
+                <mat-icon>chevron_left</mat-icon>
+            </div>
+            <div (click)="onPageChange.emit(index-1)">
+                <mat-icon>chevron_right</mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { notificationReducer } from './actor-list/store/notification/notification.reducer';
 import { AddActorFormComponent } from './actor-list/core/add-actor-form/add-actor-form.component';
 import { ActorCardComponent } from './actor-list/core/actor-card/actor-card.component';
+import { BannerComponent } from './core/components/banners/banner/banner.component';
+import { BannersComponent } from './core/components/banners/banners.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { ActorCardComponent } from './actor-list/core/actor-card/actor-card.comp
     ActorListComponent,
     ActorCardComponent,
     AddActorFormComponent,
+    BannerComponent,
+    BannersComponent,
   ],
   imports: [
     BrowserModule,

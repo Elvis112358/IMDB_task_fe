@@ -1,0 +1,47 @@
+.banner-container {
+    position: relative;
+    .banner-content {
+        border-radius: 25px;
+        color: white;
+        overflow: hidden;
+        .banner-image {
+            width: 100%;
+            object-fit: cover;
+            max-height: var(--banner-height);
+        }
+        .banner-text {
+            top: 30%;
+            left: 30px;
+            width: min(80vw, 500px);
+            position: absolute;
+        }
+        .banner-btn {
+            bottom: 10%;
+            left: 30px;
+            position: absolute;
+        }
+        .banner-controls {
+            position: absolute;
+            top: calc(50% - 20px);        
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            mat-icon {
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                margin-left: -20px;
+                margin-right: -20px;
+                color: rgba(0, 0, 0, 0.725);
+                cursor: pointer;
+                font-size: 30px;
+                &:hover {
+                    background: rgba(255, 255, 255, 0.9);
+                }
+            }
+        }
+    }
+}

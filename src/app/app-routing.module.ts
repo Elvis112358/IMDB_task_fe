@@ -4,12 +4,17 @@ import { TopMoviesTableComponent } from './movies/components/top-movies-table/to
 import { AllMoviesComponent } from './movies/components/all-movies/all-movies.component';
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
 import { ActorListComponent } from './actor-list/actor-list.component';
+import { BannersComponent } from './core/components/banners/banners.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'all-movies'
+  },
+  {
+    path:'banners',
+    component: BannersComponent
   },
   {
     path: 'all-movies',
