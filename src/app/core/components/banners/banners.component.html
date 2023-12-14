@@ -1,8 +1,8 @@
 <div class="container">
     <app-banner
         [banner]="(banner$ | async) || defaultBanner"
-        [index]="currentBannerIndex"
-        (onPageChange)="onPageChange($event)"
+        (nextBanner)="nextBannerChange()"
+        (previousBanner)="previousBannerChange()"
         [showControls]="!!(banners$ |async)?.length || false">
     </app-banner>
 <div>

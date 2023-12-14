@@ -10,5 +10,6 @@ export class BannerComponent {
   @Input() banner!: Banner;
   @Input() index!: number;
   @Input() showControls: boolean = true;
-  @Output() onPageChange = new EventEmitter<number>();
+  @Output() nextBanner = new EventEmitter<void>();
+  @Output() previousBanner = new EventEmitter<void>();
 }

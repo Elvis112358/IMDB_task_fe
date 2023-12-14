@@ -11,10 +11,10 @@
             </button>
         </div>
         <div *ngIf="showControls" class="banner-controls">
-            <div (click)="onPageChange.emit(index+1)">
+            <div (click)="nextBanner.emit()">
                 <mat-icon>chevron_left</mat-icon>
             </div>
-            <div (click)="onPageChange.emit(index-1)">
+            <div (click)="previousBanner.emit()">
                 <mat-icon>chevron_right</mat-icon>
             </div>
         </div>

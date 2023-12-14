@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, combineLatest, concatMap, debounceTime, interval, map, of, startWith, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, combineLatest, concatMap, debounceTime, interval, map, of, startWith, switchMap, pairwise, take, tap, withLatestFrom } from 'rxjs';
 import { Banner } from '../../interfaces/common.interface';
 import { BannerService } from '../../services/banner.service';
 
@@ -27,39 +27,64 @@ export class BannersComponent implements OnInit {
     image:
       'https://img.freepik.com/premium-photo/bangkok-thailand-08082022-lamborghini-luxury-super-car-fast-sports-premium-lighting-background-3d-illustration_67092-1599.jpg',
   };
-  readonly bannerInterval = 1000;
+  readonly bannerInterval = 2000;
   // private activeIndex = new BehaviorSubject(0);
   // activeIndex$ = this.activeIndex.asObservable();
   currentBannerIndex = 0;
   actionStreamBS: BehaviorSubject<number> = new BehaviorSubject(0);
-  actionStream$: Observable<number> = this.actionStreamBS.asObservable();
-  banner$ = combineLatest([this.banners$, this.actionStream$]).pipe(
-    tap(()=>console.log('this.CurrentIndex', this.currentBannerIndex)),
-    map(([banners, action]: [Banner[], number]) => {
-      return this.getBannerForSlider(banners, action)
-    })
-  );
+  actionStream$: Observable<number> = this.actionStreamBS.asObservable().pipe(startWith(0));
+  // banner$ = combineLatest([this.banners$, this.actionStream$]).pipe(
+  //   tap(()=>console.log('this.CurrentIndex', this.currentBannerIndex)),
+  //   map(([banners, action]: [Banner[], number]) => {
+  //     return this.getBannerForSlider(banners, action)
+  //   })
+  // );
+  banner$ = combineLatest([this.banners$, this.actionStream$, this.nextBannerIndexInterval()])
+    .pipe(
+      map(([banners, action, intervalIndex]: [Banner[], number, number | null]) => {
+
+        // if(action < this.currentBannerIndex)
+        
+        // return this.getBannerForSlider(banners, action);
+        
+        console.log('action', action);
+        console.log('intervalIndex', intervalIndex);
+        console.log('currentBannerIndex', this.currentBannerIndex);
+        console.log(')_________ ');
+        
+        return this.getBannerForSlider(banners, intervalIndex || action)
+      })
+    )
 
   ngOnInit(): void {
-    this.bannerSlider();
+    // this.bannerSlider();
   }
 
-  bannerSlider() {
-    interval(this.bannerInterval)
+  nextBannerIndexInterval(): Observable<number | null> {
+    return interval(this.bannerInterval)
       .pipe(
         startWith(0),
-        concatMap(() =>
+        switchMap(() =>
           this.actionStream$.pipe(
             debounceTime(this.bannerInterval - 100),
-            tap(() => {console.log('teeest', this.currentBannerIndex); this.onPageChange(this.currentBannerIndex + 1)})
+            // map(() => this.currentBannerIndex + 1)
           )
-        )
+        ),
+        pairwise(),
+        map((niz: number[]) => {
+          if(niz[0] == niz[1])
+            return null
+          return this.currentBannerIndex + 1
+        })
       )
-      .subscribe();
   }
 
-  onPageChange(newIndex: number): void {
-    this.actionStreamBS.next(newIndex);
+  nextBannerChange() {
+    this.actionStreamBS.next(this.currentBannerIndex - 1) //TODO promjeniti ime event emitera
+  }
+
+  previousBannerChange() {
+    this.actionStreamBS.next(this.currentBannerIndex + 1)
   }
 
   private getBannerForSlider(banners : Banner[], index: number): Banner {
