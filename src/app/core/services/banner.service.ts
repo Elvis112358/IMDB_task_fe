@@ -76,7 +76,7 @@ const banners: Banner[] = [
     scope: 'BRAND',
     scopeId: '5223e12b-644c-411c-aebe-f924253c9da3',
     subtitle: undefined,
-    title: 'Give your car the best treat',
+    title: 'Give your car the best treat 3',
     type: 'HOME',
     url: '/login',
     validFrom: new Date('2023-12-05T23:00:00Z'),

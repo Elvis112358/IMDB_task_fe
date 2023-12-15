@@ -27,32 +27,51 @@ export class BannersComponent implements OnInit {
     image:
       'https://img.freepik.com/premium-photo/bangkok-thailand-08082022-lamborghini-luxury-super-car-fast-sports-premium-lighting-background-3d-illustration_67092-1599.jpg',
   };
-  readonly bannerInterval = 2000;
+  readonly bannerInterval = 4000;
   // private activeIndex = new BehaviorSubject(0);
   // activeIndex$ = this.activeIndex.asObservable();
   currentBannerIndex = 0;
   actionStreamBS: BehaviorSubject<number> = new BehaviorSubject(0);
   actionStream$: Observable<number> = this.actionStreamBS.asObservable().pipe(startWith(0));
+  interval$:Observable<number> = interval(this.bannerInterval)
+  .pipe(
+    startWith(0),
+    switchMap(() =>
+      this.actionStream$.pipe(
+        debounceTime(this.bannerInterval - 100),
+        map(() => this.currentBannerIndex + 1)
+      )
+    )
+  );
   // banner$ = combineLatest([this.banners$, this.actionStream$]).pipe(
   //   tap(()=>console.log('this.CurrentIndex', this.currentBannerIndex)),
   //   map(([banners, action]: [Banner[], number]) => {
   //     return this.getBannerForSlider(banners, action)
   //   })
   // );
-  banner$ = combineLatest([this.banners$, this.actionStream$, this.nextBannerIndexInterval()])
+  banner$ = combineLatest([this.banners$, this.actionStream$.pipe(pairwise()), this.interval$.pipe(pairwise())])
     .pipe(
-      map(([banners, action, intervalIndex]: [Banner[], number, number | null]) => {
-
-        // if(action < this.currentBannerIndex)
+      map(([banners, [prevAction, action], [prevInterval, currInterval]]: [Banner[], [number, number], [number, number]]) => {
         
-        // return this.getBannerForSlider(banners, action);
-        
+        console.log('prevAction', prevAction);
         console.log('action', action);
-        console.log('intervalIndex', intervalIndex);
+        console.log('prevInterval', prevInterval);
+        console.log('currInterval', currInterval);
         console.log('currentBannerIndex', this.currentBannerIndex);
         console.log(')_________ ');
+
+        if(action > currInterval && action > prevAction) {
         
-        return this.getBannerForSlider(banners, intervalIndex || action)
+          console.log('KLIKNO DESNO');
+          return this.getBannerForSlider(banners, action)
+        }
+
+        // if() {
+          if((action < this.currentBannerIndex) && (action === prevInterval || action < currInterval && action < prevAction)) {
+          console.log('KLIKNO LIJEVO');
+          return this.getBannerForSlider(banners, action)
+        }
+        return this.getBannerForSlider(banners, currInterval)
       })
     )
 
@@ -60,24 +79,18 @@ export class BannersComponent implements OnInit {
     // this.bannerSlider();
   }
 
-  nextBannerIndexInterval(): Observable<number | null> {
-    return interval(this.bannerInterval)
-      .pipe(
-        startWith(0),
-        switchMap(() =>
-          this.actionStream$.pipe(
-            debounceTime(this.bannerInterval - 100),
-            // map(() => this.currentBannerIndex + 1)
-          )
-        ),
-        pairwise(),
-        map((niz: number[]) => {
-          if(niz[0] == niz[1])
-            return null
-          return this.currentBannerIndex + 1
-        })
-      )
-  }
+  // nextBannerIndexInterval(): Observable<number | null> {
+  //   return interval(this.bannerInterval)
+  //     .pipe(
+  //       startWith(0),
+  //       switchMap(() =>
+  //         this.actionStream$.pipe(
+  //           debounceTime(this.bannerInterval - 100),
+  //           map(() => this.currentBannerIndex + 1)
+  //         )
+  //       )
+  //     )
+  // }
 
   nextBannerChange() {
     this.actionStreamBS.next(this.currentBannerIndex - 1) //TODO promjeniti ime event emitera
