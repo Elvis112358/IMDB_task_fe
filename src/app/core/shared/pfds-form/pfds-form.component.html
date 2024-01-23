@@ -1,0 +1,316 @@
+<div class="outer-form-container" (click)="closeAllTooltips()">
+  <button (click)="addPfd()">AddPFd</button>
+  <form *ngIf="pfdsForm" [formGroup]="pfdsForm" (ngSubmit)="onSubmit()">
+    <button type="submit">Submit</button>
+    <div formArrayName="pfds">
+      <!-- <cdk-virtual-scroll-viewport itemSize="260" class="pfd-wrapper"> -->
+        <div *ngFor="let pfd of pfds().controls; let pfdIndex=index;">
+          <div [formGroupName]="pfdIndex" class="pfd-box" [style.margin-bottom.px]="(pfds().controls && pfds().controls.length - 1 === pfdIndex) ? 81 : 22">
+            <div class="pfd-header">
+              <div class="pfd-id-wrapper">
+                <span translate="lbl-pfd-id-title" class="pfd-id-header">
+                </span>
+                <input *ngIf="pfd.value.isNew" formControlName="id" class="input-container"
+                  [ngClass]="{'error': formSubmitted && !pfd.get('id')?.valid}" [type]="'text'"
+                  (keyup)="updateIdValidation()" />
+                <span class="old-pfd-id" *ngIf="!pfd.value.isNew">
+                  {{ pfd.value.id }}
+                </span>
+              </div>
+              <a class="pointer" (click)="removePfd(pfdIndex)" *ngIf="pfd.value.isNew">
+                {{'lbl-remove-added-pfd' }}
+              </a>
+            </div>
+            <div class="card-content-wrapper">
+              <div class="pfd-overview" *ngIf="isEditMode">
+                <div class="preview-container" *ngIf="previewFormValues[pfd.value.id]">
+                  <pre class="pfd-pre">{{previewFormValues[pfd.value.id] | json}}</pre>
+                </div>
+              </div>
+              <div class="minimized-bar-wrapper" [ngClass]="{'isEditMode': isEditMode}">
+                <div class="minimized-bar">
+                  <div class="bar-header">
+                    <div class="left-aligned-container">
+                      <div class="arrow-icon pointer" *ngIf="!(pfd.get('flowDescriptions')?.value.length === 0)">
+                        <span *ngIf="getSpecificPfd(pfdIndex).controls['isFlowDescriptionOpen']?.value"
+                          (click)="toggleCollapseFlowDescription(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_up</i></span>
+                        <span *ngIf="!(getSpecificPfd(pfdIndex).controls['isFlowDescriptionOpen']?.value)"
+                          (click)="toggleCollapseFlowDescription(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_down</i></span>
+                      </div>
+                      <span class="title" translate="lbl-flow-description-title">
+                      </span>
+                    </div>
+                    <span class="values-added"
+                      *ngIf="!(pfd.get('flowDescriptions')?.value.length === 0) && isEditMode">
+                      {{pfd.value.flowDescriptions.length}} <span class="values-added"> {{
+                        (pfd.value.flowDescriptions.length > 1 ? 'lbl-values' : 'lbl-value') }}</span> <span
+                        class="changed-dot" *ngIf="pfd.value.isChanged"></span> </span>
+                    <a class="pointer" (click)="addFlowDescription(pfdIndex)"
+                      *ngIf="(pfd.get('flowDescriptions')?.value.length === 0)">+ Add Flow Description</a>
+                  </div>
+                  <ng-container *ngIf="getSpecificPfd(pfdIndex).controls['isFlowDescriptionOpen']?.value">
+                    <div class="flow-desc-fields">
+                      <div formArrayName="flowDescriptions">
+                        <cdk-virtual-scroll-viewport [itemSize]="calculateItemHeight()"
+                          [style.height.vh]="calculateViewportHeight(getSpecificPfd(pfdIndex))" #flowDescViewPort>
+                          <div *cdkVirtualFor="let flowDescription of getFlowDescriptionsControls(pfdIndex).controls;
+                           let flowDescriptionIndex=index; templateCacheSize:0; trackBy: trackByFn">
+                            <div [style.height.px]="calculateItemHeight()"
+                              [style.margin-bottom.px]="calculateMarginForPFDCard(getSpecificPfd(pfdIndex))"
+                              [formGroupName]="flowDescriptionIndex">
+                              <div class="card-title">
+                                <div class="left-card-title-wrapper">
+                                  <span class="text">{{'lbl-in-out-pair'}} {{flowDescriptionIndex + 1}}</span>
+                                </div>
+                                <div class="menu-container">
+                                  <a
+                                    (click)="addFlowDescription(pfdIndex, undefined, flowDescriptionIndex)">AddFlowDesc</a>
+                                </div>
+                              </div>
+                              <ng-container *ngIf="flowDescription.controls.isThisNestedFlowDescriptionOpen?.value">
+                                <div class="card-header">
+                                  <div class="permit" *ngIf="isEditMode" [ngClass]="{'isEditMode': isEditMode}">
+                                    <span>{{'lbl-permit'}} <span class="blue-bold-edit">{{'lbl-in'}}</span> </span>
+
+                                    <span class="italic-edit">{{'lbl-uplink-traffic'}} </span>
+                                  </div>
+
+                                  <div class="permit" *ngIf="!isEditMode">
+                                    <span>{{'lbl-permit'}} </span>
+                                    <span class="blue-bold">{{'lbl-in'}}</span>
+                                    <span class="italic">{{'lbl-uplink-traffic'}} </span>
+                                  </div>
+                                  <div class="ip-protocol"
+                                    (click)="setCorrectId('in-ip-protocol', pfdIndex, flowDescriptionIndex, true)">
+                                    <input attTheme formControlName="inIpProtocolDropdown"
+                                      label="lbl-ip-protocol-pfd" (focus)="setId($event)"
+                                      [id]="'in-ip-protocol'+ pfdIndex + flowDescriptionIndex" />
+                                  </div>
+                                </div>
+                                <div class="card">
+                                  <div class="container" [ngClass]="{'isEditMode': isEditMode}">
+                                    <div class="row"
+                                      (click)="setCorrectId('in-from-ip', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <input attTheme formControlName="inFromIpDropDown" label="lbl-from-ip-pfd"
+                                        (focus)="setId($event)" [id]="'in-from-ip'+ pfdIndex + flowDescriptionIndex"
+                                        placeholder="lbl-ip-adress-placeholder" />
+                                    </div>
+                                    <div class="row"
+                                      (click)="setCorrectId('in-from-port', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <div>
+                                        <span class="label">
+                                          {{ 'lbl-from-port-pfd' }}
+                                        </span>
+                                        <span class="optional">
+                                          {{ 'lbl-optional' }}
+                                        </span>
+                                      </div>
+                                      <input attTheme formControlName="inFromPortDropdown" (focus)="setId($event)"
+                                        [id]="'in-from-port'+ pfdIndex + flowDescriptionIndex"
+                                        placeholder="lbl-port-placeholder" />
+                                    </div>
+                                  </div>
+                                  <div class="container" [ngClass]="{'isEditMode': isEditMode}">
+                                    <div class="row"
+                                      (click)="setCorrectId('in-to-ip', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <input attTheme formControlName="inToIpDropdown" label="lbl-to-ip"
+                                        (focus)="setId($event)" [id]="'in-to-ip'+ pfdIndex + flowDescriptionIndex"
+                                        placeholder="lbl-ip-adress-placeholder" />
+                                    </div>
+                                    <div class="row"
+                                      (click)="setCorrectId('in-to-port', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <div>
+                                        <span class="label">
+                                          {{ 'lbl-to-port-pfd' }}
+                                        </span>
+                                        <span class="optional">
+                                          {{ 'lbl-optional' }}
+                                        </span>
+                                      </div>
+                                      <input attTheme formControlName="inToPortDropdown"
+                                        placeholder="lbl-port-placeholder" (focus)="setId($event)"
+                                        [id]="'in-to-port'+ pfdIndex + flowDescriptionIndex" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-header">
+                                  <div class="permit" *ngIf="isEditMode" [ngClass]="{'isEditMode': isEditMode}">
+                                    <span>{{'lbl-permit'}} <span class="blue-bold-edit">{{'lbl-out'}}</span> </span>
+
+                                    <span class="italic-edit">{{'lbl-network-downlink-traffic'}} </span>
+                                  </div>
+
+                                  <div class="permit" *ngIf="!isEditMode">
+                                    <span>{{'lbl-permit' }} </span>
+                                    <span class="blue-bold">{{'lbl-out' }}</span>
+                                    <span class="italic">{{'lbl-network-downlink-traffic'}} </span>
+                                  </div>
+
+                                  <div class="ip-protocol"
+                                    (click)="setCorrectId('out-ip-protocol', pfdIndex, flowDescriptionIndex, true)">
+                                    <input attTheme formControlName="outIpProtocolDropdown"
+                                      label="lbl-ip-protocol-pfd" (focus)="setId($event)"
+                                      [id]="'out-ip-protocol'+ pfdIndex + flowDescriptionIndex" />
+                                  </div>
+                                </div>
+                                <div class="card">
+                                  <div class="container" [ngClass]="{'isEditMode': isEditMode}">
+                                    <div class="row"
+                                      (click)="setCorrectId('out-from-ip', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <input attTheme formControlName="outFromIpDropdown" label="from ip:"
+                                        (focus)="setId($event)" [id]="'out-from-ip'+ pfdIndex + flowDescriptionIndex"
+                                        placeholder="lbl-ip-adress-placeholder" />
+                                    </div>
+                                    <div class="row"
+                                      (click)="setCorrectId('out-from-port', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <div>
+                                        <span class="label">
+                                          {{ 'lbl-from-port-pfd' }}
+                                        </span>
+                                        <span class="optional">
+                                          {{ 'lbl-optional' }}
+                                        </span>
+                                      </div>
+                                      <input attTheme formControlName="outFromPortDropdown"
+                                        placeholder="lbl-port-placeholder" (focus)="setId($event)"
+                                        [id]="'lbl-port-placeholder'+ pfdIndex + flowDescriptionIndex" />
+                                    </div>
+                                  </div>
+                                  <div class="container" [ngClass]="{'isEditMode': isEditMode}">
+                                    <div class="row"
+                                      (click)="setCorrectId('out-to-ip', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <input attTheme formControlName="outToIpDropdown" label="lbl-to-ip"
+                                        (focus)="setId($event)" [id]="'out-to-ip'+ pfdIndex + flowDescriptionIndex"
+                                        placeholder="lbl-ip-adress-placeholder" />
+                                    </div>
+                                    <div class="row"
+                                      (click)="setCorrectId('out-to-port', pfdIndex, flowDescriptionIndex, true)"
+                                      [ngClass]="{'isEditMode': isEditMode}">
+                                      <div>
+                                        <span class="label">
+                                          {{ 'lbl-to-port-pfd' }}
+                                        </span>
+                                        <span class="optional">
+                                          {{ 'lbl-optional' }}
+                                        </span>
+                                      </div>
+                                      <input attTheme formControlName="outToPortDropdown"
+                                        placeholder="lbl-port-placeholder" (focus)="setId($event)"
+                                        [id]="'out-to-port'+ pfdIndex + flowDescriptionIndex" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </cdk-virtual-scroll-viewport>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                </div>
+                <div class="minimized-bar">
+                  <div class="bar-header">
+                    <div class="left-aligned-container">
+                      <div class="arrow-icon pointer"
+                        *ngIf="getSpecificPfd(pfdIndex).controls['domainNames'] !== undefined">
+                        <span *ngIf="getSpecificPfd(pfdIndex).controls['isDomainNameOpen']?.value"
+                          (click)="toggleCollapseDomainNames(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_up</i></span>
+                        <span *ngIf="!getSpecificPfd(pfdIndex).controls['isDomainNameOpen']?.value"
+                          (click)="toggleCollapseDomainNames(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_down</i></span>
+                      </div>
+                      <span class="title" translate="Domain Names">
+                      </span>
+                    </div>
+                    <a class="pointer" (click)="addDomainNameFormControl(pfd)"
+                      *ngIf="!(getSpecificPfd(pfdIndex).controls['domainNames'] !== undefined); else xicondn">+ Add
+                      Domain Names</a>
+                    <ng-template #xicondn>
+                      <!-- <img alt="Close Icon" class="pointer" (click)=""
+                        src={{closeIcon}} height="38" width="38" /> -->
+                        <a (click)="deleteDomainNamesFormControl(pfd)">Close</a>
+                    </ng-template>
+                  </div>
+                  <div class="domain-name-fields"
+                    *ngIf="getSpecificPfd(pfdIndex).controls['domainNames'] !== undefined && getSpecificPfd(pfdIndex).controls['domainNames']?.value !== undefined && getSpecificPfd(pfdIndex).controls['isDomainNameOpen']?.value">
+                    <div class="domain-name mdl-grid">
+                      <div class="domain-name-dropdown-radio-group">
+                        <mat-form-field>
+                          <mat-label>Select an option</mat-label>
+                          <mat-select formControlName="dnProtocol">
+                            <mat-option *ngFor="let option of dnProtocols" [value]="option">{{ option }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="domain-name-textarea-radio-group"
+                        (click)="remainOpenTooltip('domain_names_', pfdIndex)">
+                        <mat-form-field>
+                          <mat-label>Enter text</mat-label>
+                          <textarea matInput formControlName="domainNames" rows="5"></textarea>
+                          <mat-error *ngIf="pfd.get('domainNames')">
+                            Text is required!
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="minimized-bar">
+                  <div class="bar-header">
+                    <div class="left-aligned-container">
+                      <div class="arrow-icon pointer"
+                        *ngIf="getSpecificPfd(pfdIndex).controls['urls'] !== undefined">
+                        <span *ngIf="getSpecificPfd(pfdIndex).controls['isUrlsOpen']?.value"
+                          (click)="toggleCollapseUrls(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_up</i></span>
+                        <span *ngIf="!getSpecificPfd(pfdIndex).controls['isUrlsOpen']?.value"
+                          (click)="toggleCollapseUrls(pfdIndex)"><i
+                            class="material-icons sub-cards-title">keyboard_arrow_down</i></span>
+                      </div>
+                      <span class="title" translate="lbl-urls-title">
+                      </span>
+                    </div>
+                    <a class="pointer" (click)="addURLsFormControl(pfd)"
+                      *ngIf="!(getSpecificPfd(pfdIndex).controls['urls'] !== undefined); else xiconurl">+ Add
+                      URLs</a>
+                    <ng-template #xiconurl>
+                      <!-- <img alt="Close Icon" class="pointer" (click)="deleteUrlFormControl(pfd)" src={{closeIcon}}
+                        height="38" width="38" /> -->
+                        <a (click)="deleteUrlFormControl(pfd)">Close</a>
+                    </ng-template>
+                  </div>
+                  <div class="url-name-fields"
+                    *ngIf="((getSpecificPfd(pfdIndex).controls['isUrlsOpen']?.value) && (getSpecificPfd(pfdIndex).controls['urls'] !== undefined))">
+                    <div class="url-name mdl-grid">
+                      <div>
+                        <mat-form-field>
+                          <mat-label>Enter text</mat-label>
+                          <textarea matInput formControlName="urls" rows="5"></textarea>
+                          <mat-error *ngIf="pfd.get('urls')">
+                            Text is required!
+                          </mat-error>
+                        </mat-form-field>
+                        <button (click)="test(getSpecificPfd(pfdIndex).controls['urls'])">TEEEST</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </cdk-virtual-scroll-viewport> -->
+    </div>
+  </form>
+</div>

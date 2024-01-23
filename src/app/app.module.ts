@@ -36,6 +36,11 @@ import { AddActorFormComponent } from './actor-list/core/add-actor-form/add-acto
 import { ActorCardComponent } from './actor-list/core/actor-card/actor-card.component';
 import { BannerComponent } from './core/components/banners/banner/banner.component';
 import { BannersComponent } from './core/components/banners/banners.component';
+import { PfdsFormComponent } from './core/shared/pfds-form/pfds-form.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -54,6 +59,7 @@ import { BannersComponent } from './core/components/banners/banners.component';
     AddActorFormComponent,
     BannerComponent,
     BannersComponent,
+    PfdsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +77,11 @@ import { BannersComponent } from './core/components/banners/banners.component';
     MatButtonToggleModule,
     FormsModule,
     EffectsModule.forRoot([ActorsEffects]),
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    ScrollingModule ,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

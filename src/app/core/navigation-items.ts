@@ -34,6 +34,11 @@ export const UserNavigationItems = [
         displayName: 'Actors',
         iconName: 'rocket',
         route: 'actor-list'
+    },
+    {
+        displayName: 'Form',
+        iconName: 'rocket',
+        route: 'form-example'
     }
 ];
 

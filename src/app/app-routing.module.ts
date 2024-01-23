@@ -5,16 +5,17 @@ import { AllMoviesComponent } from './movies/components/all-movies/all-movies.co
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
 import { ActorListComponent } from './actor-list/actor-list.component';
 import { BannersComponent } from './core/components/banners/banners.component';
+import { PfdsFormComponent } from './core/shared/pfds-form/pfds-form.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'all-movies'
+    redirectTo: 'banners',
   },
   {
-    path:'banners',
-    component: BannersComponent
+    path: 'banners',
+    component: BannersComponent,
   },
   {
     path: 'all-movies',
@@ -25,11 +26,16 @@ const routes: Routes = [
     component: TopMoviesTableComponent,
   },
   {
-    path:'fav-movies',
-    component: FavMoviesComponent
-  }, {
-    path:'actor-list',
-    component: ActorListComponent
+    path: 'fav-movies',
+    component: FavMoviesComponent,
+  },
+  {
+    path: 'actor-list',
+    component: ActorListComponent,
+  },
+  {
+    path: 'form-example', 
+    component: PfdsFormComponent
   }
   // {
   //   path: 'sorting',

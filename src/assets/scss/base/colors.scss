@@ -1,4 +1,5 @@
 //Text colors
+@import '../base/variables.scss';
 
 .text-primary {
   color: $primaryColor;
@@ -98,3 +99,156 @@
 .orange-bg {
   background-color: #efc9a6;
 }
+
+
+$att-primary-white: #ffffff;
+$att-primary-black: #000000;
+$att-primary-red: #ff0000;
+$sidebar-background: #e2e4ec;
+$att-primary-light-grey: #d3d3d3;
+$att-primary-dark-grey: #a9a9a9;
+$att-functional-red: #cf2a2a;
+$att-contact-info-gray: #eaebec;
+$att-disabled: #878c94;
+$att-custom-black: #121212;
+
+$shared-header-green1: #48d1dde8;
+$shared-header-green2: #4dddc1;
+$cp-menu-body-blue1: #132f670f;
+$cp-menu-body-blue2: #132f670a;
+$cp-menu-body-blue3: #132f671a;
+$password-strength-checker-orange: #e65245;
+$password-strength-checker-orange1: #e65245e8;
+$password-strength-checker-orange2: #f55baee8;
+$password-strength-checker-orange3: #e65245;
+$password-strength-checker-yellow1: #fec118;
+$password-strength-checker-yellow2: #f89446;
+$password-strength-checker-blue1: #00c9ffe8;
+$password-strength-checker-blue2: #6edfb3;
+$sidebar-grey: #dbdee8e8;
+$sidebar-light-grey1: #dee1eae8;
+$sidebar-light-grey2: #d3d8e7;
+$states-diagram-pending-color1: #f3aeaf;
+$states-diagram-pending-color2: #ed92c8;
+
+$green: #4dddc0;
+$grey: #cccccc;
+$darker-grey: #566184;
+$att-dark-grey: #686e81;
+$medium-grey: #858da6;
+$medium-darker-grey: #6a7082;
+$medium-metalic-grey: #5a5a5a;
+$medium-lighter-grey: #dee2ed;
+$medium-light-grey: #d7dbe7;
+$light-grey: #eaf1f6;
+$dark-grey: #222222;
+$dark-dim-grey: #444444;
+$light-turquoise: #6ac9d2;
+$medium-turquoise: #44c8f5;
+$light-aqua-blue: #48d1dc;
+$light-sky-blue: #33c8fb;
+$light-green-ocean: #7ae6d1;
+$light-blue-green: #48d2e1;
+$medium-blue-green: #00acbf;
+$light-turquoise-green: #56d7da;
+$light-coral-blue: #46cee6;
+$light-aqua-ocean: #51dec2;
+$light-sky-green: #52dec2;
+$light-green-sky: #42b5b9;
+$light-aqua-green: #4cdcc4;
+$light-ocean-aqua: #009e80;
+$strong-grass-green: #62ef62;
+$light-coral-grey: #b9b9b9;
+$dodger-blue: #1e90ff;
+$deep-blue: #0057b8;
+$almost-black: #191919;
+$almost-white: #efefef;
+$light-salomon: #e85e60;
+$light-coral: #e65245;
+$light-tomato: #f06767;
+$light-sandy: #f15a56;
+$sandy-coral: #fd797b;
+$coral-tomato: #e85759;
+$solomon-coral: #f66862;
+$sandy-solomon: #f45954;
+$hot-pink: #db2691;
+$magenta-purple: #da2a91;
+$pale-violet-red: #d5456b;
+$dark-smoke-grey: #585c68;
+$lighter-smoke-white: #dadee8;
+$light-smoke-white: #c9cfe3;
+$dark-silver-gray: #797e8f;
+$light-silver-gray: #edeff3;
+$light-steel-grey: #c8cfe3;
+$lighter-steel-grey: #dcdfe8;
+$light-snow-white: #fafafc;
+$ligh-snow-white-second: #fbfbfc;
+$light-cloud-white: #f2f3f7;
+$dark-metalic-grey: #717171;
+$light-metalic-grey: #c0c5d0;
+$light-silver-white: #dddddd;
+$att-thumbnail-white: #f5f5f5;
+$light-white-smoke: #edeaee;
+$medium-white-smoke: #545867;
+$light-grey-white: #cfd2d7;
+$ligth-smoke-white: #dcdcdc;
+$medium-grey-white: #898989;
+$light-white-grey: #f5f6fa;
+$medium-lead-gray: #959595;
+$customer-vehicle-light-grey: #f2f2f2;
+$customer-vehicle-medium-grey: #a3b4be;
+$customer-search-almost-black: #212121;
+$medium-smoke-grey: #adadad;
+$medium-snow-white: #dedede;
+$light-metalic-white: #e9ecf5;
+$snow-metalic-white: #f5f4f4;
+$lead-metalic-grey: #a79f9f;
+$light-steel-white: #f1f3fb;
+$logo-container-grey: #e3e8f9ad;
+$header-dropdown-grey: #ffffff20;
+$dropdown-content-grey: #d2d2d25d;
+$dark-lead-grey: #333333;
+$medium-metalic-grey: #b0b0b0;
+$light-grey-white: #ffffffb3;
+$light-steel-lead-white: #d1d3dc;
+$light-lead-steel-white: #d8d8d8;
+$medium-lead-grey: #7d7d7d;
+$medium-dim-grey: #9f9898;
+$medium-lead-white: #e5e8f47a;
+$medium-metalic-white: #8080801c;
+$light-aluminium-grey: #aaafbd;
+$light-stone-grey: #bebebe;
+$medium-stone-grey: #5d5d5dde;
+$dark-stone-gery: #252525;
+$att-dark-hover: #454b52;
+$light-gainsboro-grey: #6c7286;
+$dark-blue-opacity: #02155326;
+$separator-grey: #e9f2f7;
+$aleck-gray: #7d849b;
+$table-aleck-gray: #787575;
+$expired-red: #e32f2f;
+$success-email-status-green: #edfcf9;
+$success-email-status-text-green: #2d7e24;
+$not-success-email-status-red: #fff1f1;
+$not-success-email-status-text-red: #c70032;
+$springtime-rain: #f8f9fb;
+$gray-color-93: #ededed;
+$att-delete-red: #cb1442;
+$att-delete-red-border: #c60f3d;
+$att-delete-red-lighter: #fcf2f5;
+$att-delete-custom: #c700321a;
+$att-aqua-marine-lighter: #f6fefc;
+$att-delete-red-text: #c70032eb;
+$att-scrollbar-color: #dddddd3d;
+$att-pfd-text-blue: #0057b8eb;
+$grey-btn-border: #d2d2d2;
+
+$att-filter-dark-red: invert(14%) sepia(56%) saturate(5377%) hue-rotate(331deg)
+  brightness(95%) contrast(122%);
+
+$att-filter-dark-gray: invert(0%) sepia(7%) saturate(4156%) hue-rotate(220deg)
+  brightness(125%) contrast(73%);
+$att-filter-orange: invert(50%) sepia(69%) saturate(741%) hue-rotate(338deg)
+  brightness(95%) contrast(93%);
+$att-filter-light-gray: invert(66%) sepia(11%) saturate(586%) hue-rotate(188deg)
+  brightness(83%) contrast(93%);

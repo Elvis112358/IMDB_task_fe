@@ -13,8 +13,7 @@ export class ReactionComponent {
   decrementCounter() {
     this.store.dispatch(new CounterActions.Decrement);
   }
-  incrementCounter() {
-    debugger
+  incrementCounter() { 
     this.store.dispatch(new CounterActions.Increment());
   }
 }

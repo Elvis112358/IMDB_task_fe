@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { selectNotifications } from './store/notification/notification.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { AddActorFormComponent } from './core/add-actor-form/add-actor-form.component';
+import { Observable, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-actor-list',
@@ -21,7 +22,9 @@ export class ActorListComponent {
  
   ngOnInit() {
     this.store.dispatch(ActorsApiActions.getActorsList());
-    this.subscribeToSubjectAndBehaviorSubject();
+    setTimeout(() => {
+      this.subscribeToSubjectAndBehaviorSubject();
+    }, 4000);
   }
 
   onAdd() {

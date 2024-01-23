@@ -30,7 +30,7 @@ export class BannersComponent {
     image:
       'https://img.freepik.com/premium-photo/bangkok-thailand-08082022-lamborghini-luxury-super-car-fast-sports-premium-lighting-background-3d-illustration_67092-1599.jpg',
   };
-  readonly bannerInterval = 3500;
+  readonly bannerInterval = 3000;
 
   currentBannerIndex = 0;
   actionStreamBS: BehaviorSubject<number> = new BehaviorSubject(0);
