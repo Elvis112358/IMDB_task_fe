@@ -73,6 +73,50 @@ export interface Banner {
     image: string;
 }
 
+
+
+export interface FlowDescription {
+  isThisNestedFlowDescriptionOpen: FormControl<boolean | null>,
+  // In Form initalization
+  inIpProtocolDropdown: FormControl<string>
+  // OUT Form initalization
+  outIpProtocolDropdown: FormControl<string>
+
+  // In Form initalization
+  inFromIpDropDown: FormControl<string>
+  inFromPortDropdown: FormControl<string>
+  inToIpDropdown: FormControl<string>
+  inToPortDropdown: FormControl<string>
+
+  // OUT Form initalization
+  outFromIpDropdown: FormControl<string>
+  outFromPortDropdown: FormControl<string>
+  outToIpDropdown: FormControl<string>,
+  outToPortDropdown: FormControl<string>,
+}
+export interface PfdFormValues {
+  id: FormControl<string | null>;
+  urls?: FormControl<string>;
+  domainNames?: FormControl<string | null>;
+  dnProtocol?: FormControl<string | null>;
+  flowDescriptions?: FormArray<FormGroup<FlowDescription>>;
+  isFlowDescriptionOpen?: FormControl<boolean | null>,
+  isDomainNameOpen?: FormControl<boolean | null>,
+  isUrlsOpen?: FormControl<boolean | null>,
+  isNew?: FormControl<boolean | null>,
+  isChanged?: FormControl<boolean | null>,
+}
+export interface IPfdsForm extends FormArray{
+  pfds: FormArray<FormGroup<PfdFormValues | null>>
+}
+
+
+
+
+
+
+
+
 export interface IPfdAttribute {
   id?: string;
   /** Attribute name */
@@ -94,39 +138,6 @@ export interface IPfdAttribute {
   uniqueId?: string;
 }
 
-export interface FlowDescription {
-  isThisNestedFlowDescriptionOpen: FormControl<boolean>,
-      // In Form initalization
-      inIpProtocolDropdown: FormControl<string>
-      // OUT Form initalization
-      outIpProtocolDropdown: FormControl<string>
-
-      // In Form initalization
-      inFromIpDropDown: FormControl<string>
-      inFromPortDropdown: FormControl<string>
-      inToIpDropdown: FormControl<string>
-      inToPortDropdown: FormControl<string>
-
-      // OUT Form initalization
-      outFromIpDropdown: FormControl<string>
-      outFromPortDropdown: FormControl<string>
-      outToIpDropdown: FormControl<string>,
-      outToPortDropdown: FormControl<string>,
-}
-export interface PfdFormValues {
-  id: FormControl<string>;
-  urls?: FormControl<string>;
-  domainNames?: FormControl<string>;
-  flowDescriptions?: FormArray<FormGroup<FlowDescription>>;
-  isFlowDescriptionOpen?: FormControl<boolean | null>,
-  isDomainNameOpen?: FormControl<boolean | null>,
-  isUrlsOpen?: FormControl<boolean | null>,
-  isNew?: FormControl<boolean | null>,
-  isChanged?: FormControl<boolean | null>,
-}
-export interface IPfdsForm {
-  pfds: FormArray<FormControl<PfdFormValues | null>>
-}
 export declare class PfdAttribute implements IPfdAttribute {
   id?: string;
   name?: string;

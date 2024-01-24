@@ -4,8 +4,8 @@
     <button type="submit">Submit</button>
     <div formArrayName="pfds">
       <!-- <cdk-virtual-scroll-viewport itemSize="260" class="pfd-wrapper"> -->
-        <div *ngFor="let pfd of pfds().controls; let pfdIndex=index;">
-          <div [formGroupName]="pfdIndex" class="pfd-box" [style.margin-bottom.px]="(pfds().controls && pfds().controls.length - 1 === pfdIndex) ? 81 : 22">
+        <div *ngFor="let pfd of pfds()!.controls; let pfdIndex=index;">
+          <div [formGroupName]="pfdIndex" class="pfd-box" [style.margin-bottom.px]="(pfds()!.controls && pfds()!.controls.length - 1 === pfdIndex) ? 81 : 22">
             <div class="pfd-header">
               <div class="pfd-id-wrapper">
                 <span translate="lbl-pfd-id-title" class="pfd-id-header">

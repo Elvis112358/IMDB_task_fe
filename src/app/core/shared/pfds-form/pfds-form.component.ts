@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren, } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators, } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { v4 as uuidv4 } from 'uuid';
 import { Subject, Subscription, of } from 'rxjs';
@@ -10,7 +10,7 @@ import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { transformSNIGroup, isValidIPv4, inverseTransformSNIGroup, isValidProtocol, isValidIPv6Address, isValidPort } from 'src/app/core/shared/utils';
 import { ToastrService } from 'ngx-toastr';
 import { enterAnimation, leaveAnimation } from 'src/app/core/shared/constants/animations';
-import { PfdAttribute } from 'src/app/core/interfaces/common.interface';
+import { FlowDescription, IPfdsForm, PfdAttribute, PfdFormValues } from 'src/app/core/interfaces/common.interface';
 
 @Component({
   selector: 'app-pfds-form',
@@ -20,7 +20,7 @@ import { PfdAttribute } from 'src/app/core/interfaces/common.interface';
     trigger('slideInOut', [
       transition(':enter', [useAnimation(enterAnimation)]),
       transition(':leave', [useAnimation(leaveAnimation)]),
-    ])
+    ]),
   ],
 })
 export class PfdsFormComponent implements OnInit, OnDestroy {
@@ -31,11 +31,16 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   @Input() isUpdateCRFlow = false;
   @Output() isDataFetchedFromApi = new EventEmitter<boolean>();
   // @ViewChild('pfdsLoader', { static: true }) pfdsLoader: LoaderComponent;
-  @ViewChildren('flowDescViewPort') flowDescViewPort?: QueryList<CdkVirtualScrollViewport>;
+  @ViewChildren('flowDescViewPort')
+  flowDescViewPort?: QueryList<CdkVirtualScrollViewport>;
   @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
-  pfdsForm: FormGroup = this.fb.group({
-    pfds: this.fb.array([]),
+  // pfdsForm: FormGroup = this.fb.group<IPfdsForm>({
+  //   pfds: this.fb.array<PfdFormValues | null>([]),
+  // });
+
+  pfdsForm = new FormGroup({
+    pfds: new FormArray<FormGroup<PfdFormValues | null>>([]),
   });
   savedFormValue: Array<any> = [];
   previewFormValues: PfdAttribute[] = [];
@@ -58,35 +63,28 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   changedId: string = '';
   currentId: string = '';
   shouldSkipClosingTooltip = false;
-  ngUnsubscribe$= new Subject<void>();
-  pfdFormArray = (this.pfdsForm.controls['pfds'] as FormArray)
+  ngUnsubscribe$ = new Subject<void>();
+  pfdFormArray = this.pfdsForm.controls['pfds'] as FormArray;
   getSpecificPfd = (pfdIndex: number): FormGroup => {
     // console.log('this.pfds().controls[pfdIndex] as FormGroup',this.pfds().controls[pfdIndex] as FormGroup)
     return this.pfds().controls[pfdIndex] as FormGroup;
   };
 
-  getFlowDescriptionsControls(pfdIndex: number): FormArray  {
+  getFlowDescriptionsControls(pfdIndex: number): FormArray {
     const specificPfd = this.getSpecificPfd(pfdIndex);
-  
-    // if (specificPfd && specificPfd.controls['flowDescriptions'] instanceof FormArray) {
-      return specificPfd.controls['flowDescriptions'] as FormArray;
-   
-  }
 
-  logajMiOvo(test:boolean) {
-    console.log('test', test);
-    return test;
+    // if (specificPfd && specificPfd.controls['flowDescriptions'] instanceof FormArray) {
+    return specificPfd.controls['flowDescriptions'] as FormArray;
   }
 
   constructor(
     // protected nefService: NefService,
     private fb: FormBuilder,
     private router: Router,
-    protected toasterService: ToastrService,
-    // private routerService: RouterService
-  ) { }
+    protected toasterService: ToastrService // private routerService: RouterService
+  ) {}
   test(value: any) {
-    console.log('pfd.geturs', value)
+    console.log('pfd.geturs', value);
   }
   async ngOnInit(): Promise<void> {
     // this.pfdsLoader.show();
@@ -94,8 +92,7 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     if (!this.savedFormValue?.length && !this.isEditMode) {
       this.initalizeForm();
       this.addPfd();
-    } 
- 
+    }
 
     this.pfds().controls.forEach((pfdGroup) => {
       pfdGroup.get('flowDescriptions')?.valueChanges.subscribe(() => {
@@ -129,14 +126,16 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   }
 
   subscribeToIdValidationSubject(): void {
-      this.validationDebounceSubject.pipe(
+    this.validationDebounceSubject
+      .pipe(
         debounceTime(300),
         switchMap(() => {
           this.updateAllIdsValueAndValidity();
           return of(null);
         }),
         takeUntil(this.ngUnsubscribe$)
-    ).subscribe();
+      )
+      .subscribe();
   }
 
   closeAllTooltips() {
@@ -187,7 +186,6 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     //     this.tooltipVisible[key] = false;
     //   }
     // }
-
     // if (this.tooltipVisible[id] && this.tooltipClicked[id]) {
     //   this.tooltipVisible[id] = false;
     //   this.tooltipClicked[id] = false;
@@ -229,22 +227,20 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
 
   private generateRandomId() {
     const randomId = uuidv4();
-  // console.log('Generated UUID:', randomId);
-  return randomId;
+    return randomId;
   }
 
   initalizeForm(): void {
     this.pfdsForm = this.fb.group({
-      pfds: this.fb.array([]),
+      pfds: this.fb.array<FormGroup<PfdFormValues | null>>([]),
     });
   }
 
-  pfds(): FormArray {
-    return this.pfdsForm.get('pfds') as FormArray;
+  pfds(): IPfdsForm {
+    return this.pfdsForm.get('pfds') as IPfdsForm;
   }
 
   addPfd(pfdObject?: any, isOld?: boolean) {
-    // debugger
     if (pfdObject || isOld) {
       this.pfds().push(this.newPfd(pfdObject, isOld));
     } else {
@@ -254,20 +250,19 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     this.changedId = '';
   }
 
-
-  newPfd(pfdValues?: any, isOldPfd?: boolean): FormGroup {
+  newPfd(pfdValues?: any, isOldPfd?: boolean): FormGroup<PfdFormValues> {
     const id = this.generateRandomId();
-    return this.fb.group({
-      id: [
-        pfdValues?.id || id,
-        [Validators.required, validators.uniqueIdValidator()],
-      ],
-      flowDescriptions: this.fb.array([]),
-      isFlowDescriptionOpen: true,
-      isDomainNameOpen: true,
-      isUrlsOpen: true,
-      isNew: !isOldPfd,
-      isChanged: !pfdValues,
+    return new FormGroup<PfdFormValues>({
+      id: new FormControl<string>(pfdValues?.id || id, [
+        Validators.required,
+        validators.uniqueIdValidator(),
+      ]),
+      flowDescriptions: new FormArray<FormGroup<FlowDescription>>([]),
+      isFlowDescriptionOpen: new FormControl<boolean>(true),
+      isDomainNameOpen: new FormControl<boolean>(true),
+      isUrlsOpen: new FormControl<boolean>(true),
+      isNew: new FormControl<boolean>(!isOldPfd),
+      isChanged: new FormControl<boolean>(!pfdValues),
     });
   }
 
@@ -288,59 +283,58 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  pfdsFlowDescriptions(empIndex: number): FormArray {
-    return this.pfds().at(empIndex).get('flowDescriptions') as FormArray;
+  pfdsFlowDescriptions(empIndex: number): FormArray<FormGroup<FlowDescription>> {
+    return this.pfds().at(empIndex).get('flowDescriptions') as FormArray<FormGroup<FlowDescription>>;
   }
 
-  newFlowDescription(flowDescriptions: any): FormGroup {
-    return this.fb.group({
-      isThisNestedFlowDescriptionOpen: true,
+  newFlowDescription(flowDescriptions: any): FormGroup<FlowDescription> {
+    return new FormGroup<FlowDescription>({
+      isThisNestedFlowDescriptionOpen: new FormControl(true),
       // In Form initalization
-      inIpProtocolDropdown: [
+      inIpProtocolDropdown: new FormControl(
         flowDescriptions?.inIpProtocolDropdown || '',
-        [validators.idProtocolValidator],
-      ],
+        [validators.idProtocolValidator]
+      ),
       // OUT Form initalization
-      outIpProtocolDropdown: [
+      outIpProtocolDropdown: new FormControl(
         flowDescriptions?.outIpProtocolDropdown || '',
-        [validators.idProtocolValidator],
-      ],
+        [validators.idProtocolValidator]
+      ),
 
       // In Form initalization
-      inFromIpDropDown: [
+      inFromIpDropDown: new FormControl(
         flowDescriptions?.inFromIpDropDown || '',
-        [validators.iPAddressValidator],
-      ],
-      inFromPortDropdown: [
+        [validators.iPAddressValidator]
+      ),
+      inFromPortDropdown: new FormControl(
         flowDescriptions?.inFromPortDropdown || '',
-        [validators.portValidator],
-      ],
-      inToIpDropdown: [
-        flowDescriptions?.inToIpDropdown || '',
-        [validators.iPAddressValidator],
-      ],
-      inToPortDropdown: [
+        [validators.portValidator]
+      ),
+      inToIpDropdown: new FormControl(flowDescriptions?.inToIpDropdown || '', [
+        validators.iPAddressValidator,
+      ]),
+      inToPortDropdown: new FormControl(
         flowDescriptions?.inToPortDropdown || '',
-        [validators.portValidator],
-      ],
+        [validators.portValidator]
+      ),
 
       // OUT Form initalization
-      outFromIpDropdown: [
+      outFromIpDropdown: new FormControl(
         flowDescriptions?.outFromIpDropdown || '',
-        [validators.iPAddressValidator],
-      ],
-      outFromPortDropdown: [
+        [validators.iPAddressValidator]
+      ),
+      outFromPortDropdown: new FormControl(
         flowDescriptions?.outFromPortDropdown || '',
-        [validators.portValidator],
-      ],
-      outToIpDropdown: [
+        [validators.portValidator]
+      ),
+      outToIpDropdown: new FormControl(
         flowDescriptions?.outToIpDropdown || '',
-        [validators.iPAddressValidator],
-      ],
-      outToPortDropdown: [
+        [validators.iPAddressValidator]
+      ),
+      outToPortDropdown: new FormControl(
         flowDescriptions?.outToPortDropdown || '',
-        [validators.portValidator],
-      ],
+        [validators.portValidator]
+      ),
     });
   }
 
@@ -349,27 +343,27 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     flowDescription?: any,
     flowDescInsertIndex?: number
   ) {
-    const flowDescriptionArray = this.newFlowDescription(flowDescription);
+    const flowDescriptionFormGroup = this.newFlowDescription(flowDescription);
     if (flowDescInsertIndex !== undefined) {
       this.pfdsFlowDescriptions(pfdIndex).insert(
         flowDescInsertIndex,
-        flowDescriptionArray
+        flowDescriptionFormGroup
       );
     } else {
-      this.pfdsFlowDescriptions(pfdIndex).push(flowDescriptionArray);
+      this.pfdsFlowDescriptions(pfdIndex).push(flowDescriptionFormGroup);
     }
     this.toggleAccordionToDetectChanges(pfdIndex);
 
     console.log('addFlowDescription', this.pfdsForm);
-    if(flowDescInsertIndex)
+    if (flowDescInsertIndex)
       this.scrollToAddedFlowDescription(pfdIndex, flowDescInsertIndex);
   }
 
   toggleAccordionToDetectChanges(pfdIndex: number) {
-    this.pfds().at(pfdIndex).get('isFlowDescriptionOpen')?.setValue(false)
+    this.pfds().at(pfdIndex).get('isFlowDescriptionOpen')?.setValue(false);
     setTimeout(() => {
-      this.pfds().at(pfdIndex).get('isFlowDescriptionOpen')?.setValue(true)
-    }, 0)
+      this.pfds().at(pfdIndex).get('isFlowDescriptionOpen')?.setValue(true);
+    }, 0);
   }
 
   scrollToAddedFlowDescription(pfdIndex: number, flowDescInsertIndex: number) {
@@ -377,21 +371,21 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
       if (!this.flowDescViewPort?.length) {
         return;
       }
-      
+
       const activeViewPort = this.flowDescViewPort.toArray()[pfdIndex];
       if (flowDescInsertIndex && activeViewPort) {
         activeViewPort.scrollToIndex(flowDescInsertIndex);
       }
-    })
+    });
   }
 
   removeFlowDescription(pfdIndex: number, flowDescIndex: number) {
     this.pfdsFlowDescriptions(pfdIndex).removeAt(flowDescIndex);
-    this.toggleAccordionToDetectChanges(pfdIndex)
+    this.toggleAccordionToDetectChanges(pfdIndex);
   }
 
   addDomainNameFormControl(
-    pfdFormGroup: any,
+    pfdFormGroup: any | FormGroup<PfdFormValues>,
     domainNamesValue?: string,
     dnProtocolValue?: any
   ) {
@@ -405,10 +399,7 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     // this.selectedDnProtocol = nefConst.dnProtocols.find(
     //   (dnProtocol) => dnProtocol.label === dnProtocolValue?.label
     // );
-    pfdFormGroup.addControl(
-      'dnProtocol',
-      this.fb.control('')
-    );
+    pfdFormGroup.addControl('dnProtocol', new FormControl(''));
   }
 
   addURLsFormControl(pfdFormGroup: any, urlsValue?: string) {
@@ -436,7 +427,7 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
       this.savedFormValue.forEach((pfd: any, pfdIndex) => {
         // add isOld flag only for pfds which ids match with initialpfds
         // this way we know for sure they are old ones
-                this.addPfd(pfd, this.isContainedInInitalPfdData(pfd));
+        this.addPfd(pfd, this.isContainedInInitalPfdData(pfd));
         if (pfd?.domainNames) {
           this.addDomainNameFormControl(
             this.pfds().at(pfdIndex) as FormGroup,
@@ -464,25 +455,25 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   toggleCollapseFlowDescription(pfdIndex: number) {
     const currentValue: boolean = (this.pfds().controls[pfdIndex] as FormGroup)
       .controls?.['isFlowDescriptionOpen'].value;
-    (
-      this.pfds().controls[pfdIndex] as FormGroup
-    ).controls?.['isFlowDescriptionOpen'].patchValue(!currentValue);
+    (this.pfds().controls[pfdIndex] as FormGroup).controls?.[
+      'isFlowDescriptionOpen'
+    ].patchValue(!currentValue);
   }
 
   toggleCollapseDomainNames(pfdIndex: number) {
     const currentValue: boolean = (this.pfds().controls[pfdIndex] as FormGroup)
       .controls?.['isDomainNameOpen'].value;
-    (
-      this.pfds().controls[pfdIndex] as FormGroup
-    ).controls?.['isDomainNameOpen'].patchValue(!currentValue);
+    (this.pfds().controls[pfdIndex] as FormGroup).controls?.[
+      'isDomainNameOpen'
+    ].patchValue(!currentValue);
   }
 
   toggleCollapseUrls(pfdIndex: number) {
     const currentValue: boolean = (this.pfds().controls[pfdIndex] as FormGroup)
       .controls?.['isUrlsOpen'].value;
-    (
-      this.pfds().controls[pfdIndex] as FormGroup
-    ).controls?.['isUrlsOpen'].patchValue(!currentValue);
+    (this.pfds().controls[pfdIndex] as FormGroup).controls?.[
+      'isUrlsOpen'
+    ].patchValue(!currentValue);
   }
 
   onSubmit(): boolean {
@@ -490,7 +481,7 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     // this.valueChange.emit(
     //   this.pfdsForm.status === 'INVALID' && this.formSubmitted
     // );
-    console.log('this.pfdsForm', this.pfdsForm)
+    console.log('this.pfdsForm', this.pfdsForm);
     if (this.pfdsForm.valid) {
       this.preparePfdFormDataForRequest(this.pfdsForm);
       return true;
@@ -510,7 +501,7 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
 
   private isContainedInInitalPfdData(pfd: any): boolean {
     if (this.previewFormValues) {
-      return this.previewFormValues[pfd?.id] != null
+      return this.previewFormValues[pfd?.id] != null;
     }
     return false;
   }
@@ -590,20 +581,25 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
     return transformedIpAddress;
   }
 
-  private prepareDataForFormPrepopulation(pfds: PfdAttribute[]): Array<any> | void  {
+  private prepareDataForFormPrepopulation(
+    pfds: PfdAttribute[]
+  ): Array<any> | void {
     try {
       return pfds.map((inputObj: PfdAttribute) => ({
         id: inputObj?.id,
         domainNames:
-        inputObj?.domainNames && inputObj?.domainNames?.length > 0
+          inputObj?.domainNames && inputObj?.domainNames?.length > 0
             ? inverseTransformSNIGroup(inputObj.domainNames)
             : undefined,
         flowDescriptions:
           inputObj?.flowDescriptions?.join(',') !== '' &&
-            inputObj?.flowDescriptions?.join(',') !== undefined
+          inputObj?.flowDescriptions?.join(',') !== undefined
             ? this.parseFlowDescriptionBlock(inputObj?.flowDescriptions)
             : undefined,
-        urls: inputObj?.urls && inputObj?.urls?.length > 0 ? inputObj.urls.join(',') : undefined,
+        urls:
+          inputObj?.urls && inputObj?.urls?.length > 0
+            ? inputObj.urls.join(',')
+            : undefined,
         dnProtocol: { label: inputObj?.dnProtocol },
       }));
     } catch (e) {
@@ -656,41 +652,41 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
 
     return lineArray[1] === 'in'
       ? {
-        inIpProtocolDropdown: isValidProtocol(lineArray[2]) && lineArray[2],
+          inIpProtocolDropdown: isValidProtocol(lineArray[2]) && lineArray[2],
 
-        inFromIpDropDown:
-          (isValidIPv4(lineArray[4]) || isValidIPv6Address(lineArray[4])) &&
-          lineArray[4],
+          inFromIpDropDown:
+            (isValidIPv4(lineArray[4]) || isValidIPv6Address(lineArray[4])) &&
+            lineArray[4],
 
-        inFromPortDropdown:
-          isValidPort(lineArray[fromPortIndex]) && lineArray[fromPortIndex],
+          inFromPortDropdown:
+            isValidPort(lineArray[fromPortIndex]) && lineArray[fromPortIndex],
 
-        inToIpDropdown:
-          (isValidIPv4(lineArray[toIpAdressIndex]) ||
-            isValidIPv6Address(lineArray[toIpAdressIndex])) &&
-          lineArray[toIpAdressIndex],
+          inToIpDropdown:
+            (isValidIPv4(lineArray[toIpAdressIndex]) ||
+              isValidIPv6Address(lineArray[toIpAdressIndex])) &&
+            lineArray[toIpAdressIndex],
 
-        inToPortDropdown:
-          isValidPort(lineArray[toPortIndex]) && lineArray[toPortIndex],
-      }
+          inToPortDropdown:
+            isValidPort(lineArray[toPortIndex]) && lineArray[toPortIndex],
+        }
       : {
-        outIpProtocolDropdown: isValidProtocol(lineArray[2]) && lineArray[2],
+          outIpProtocolDropdown: isValidProtocol(lineArray[2]) && lineArray[2],
 
-        outFromIpDropdown:
-          (isValidIPv4(lineArray[4]) || isValidIPv6Address(lineArray[4])) &&
-          lineArray[4],
+          outFromIpDropdown:
+            (isValidIPv4(lineArray[4]) || isValidIPv6Address(lineArray[4])) &&
+            lineArray[4],
 
-        outFromPortDropdown:
-          isValidPort(lineArray[fromPortIndex]) && lineArray[fromPortIndex],
+          outFromPortDropdown:
+            isValidPort(lineArray[fromPortIndex]) && lineArray[fromPortIndex],
 
-        outToIpDropdown:
-          (isValidIPv4(lineArray[toIpAdressIndex]) ||
-            isValidIPv6Address(lineArray[toIpAdressIndex])) &&
-          lineArray[toIpAdressIndex],
+          outToIpDropdown:
+            (isValidIPv4(lineArray[toIpAdressIndex]) ||
+              isValidIPv6Address(lineArray[toIpAdressIndex])) &&
+            lineArray[toIpAdressIndex],
 
-        outToPortDropdown:
-          isValidPort(lineArray[toPortIndex]) && lineArray[toPortIndex],
-      };
+          outToPortDropdown:
+            isValidPort(lineArray[toPortIndex]) && lineArray[toPortIndex],
+        };
   }
 
   private getPermitType(flowDescriptionLine: string) {
@@ -735,19 +731,24 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   // }
 
   private updateValidatyForLastTwoDuplicates(): void {
-    const newlyAddedFormGroups = (this.pfds().controls as FormGroup[]).filter((formGroup: FormGroup) => formGroup.controls['isNew'].value);
+    const newlyAddedFormGroups = (this.pfds().controls as FormGroup[]).filter(
+      (formGroup: FormGroup) => formGroup.controls['isNew'].value
+    );
 
-    if(newlyAddedFormGroups.length === 1) {
+    if (newlyAddedFormGroups.length === 1) {
       this.updateAllIdsValueAndValidity();
     }
   }
 
   calculateViewportHeight(group: AbstractControl): number {
-    return group.get('isFlowDescriptionOpen')?.value && (group.get('flowDescriptions') as FormArray).controls.length > 0 ? 60 : 0
+    return group.get('isFlowDescriptionOpen')?.value &&
+      (group.get('flowDescriptions') as FormArray).controls.length > 0
+      ? 60
+      : 0;
   }
 
   calculateItemHeight(): number {
-    return this.isEditMode ? 820 : 550
+    return this.isEditMode ? 820 : 550;
   }
 
   trackByFn(index: number): number {
@@ -755,10 +756,12 @@ export class PfdsFormComponent implements OnInit, OnDestroy {
   }
 
   calculateMarginForPFDCard(group: any): number {
-    const createPageHasErrors = group.status === 'INVALID' && this.formSubmitted && !this.isEditMode
-    const editPageHasErrors = (group.status === 'INVALID' && this.formSubmitted && this.isEditMode)
+    const createPageHasErrors =
+      group.status === 'INVALID' && this.formSubmitted && !this.isEditMode;
+    const editPageHasErrors =
+      group.status === 'INVALID' && this.formSubmitted && this.isEditMode;
 
-    return createPageHasErrors ? 300 : editPageHasErrors ? 220 : 100
+    return createPageHasErrors ? 300 : editPageHasErrors ? 220 : 100;
   }
 
   ngOnDestroy(): void {
