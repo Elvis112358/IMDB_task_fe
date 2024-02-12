@@ -14,6 +14,8 @@ import { FadeIn } from '../../animation';
 export class BannersComponent {
   banners$: Observable<Banner[]> = inject(BannerService).getBanners();
 
+  isMFAOptedTest = false;
+
   defaultBanner: Banner = {
     active: false,
     buttonText: 'Register',
@@ -75,5 +77,8 @@ export class BannersComponent {
       calculatedIndex < 0 ? calculatedIndex + banners.length : calculatedIndex;
     this.currentBannerIndex = index;
     return banners[indexToReturn];
+  }
+  functionTest() {
+    console.log('okinulo funkcijue')
   }
 }
