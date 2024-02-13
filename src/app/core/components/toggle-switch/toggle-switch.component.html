@@ -1,0 +1,30 @@
+<label class="switch">
+    <input
+      type="checkbox"
+      class="input"
+      (click)="toggleChecked()"
+      [value]="{ checked: isChecked }"
+      [ngClass]="{ checked: isChecked, disabled: disabled }"
+    />
+    <!-- <app-spinner *ngIf="showSpinner"></app-spinner> -->
+    <!-- <ng-template #tipContent>{{ label   }}</ng-template>
+    <span
+      *ngIf="!showSpinner"
+      class="slider round"
+      [ngClass]="{ 'slider-bg-purple': isChecked }"
+    ></span>
+    <span
+      #spanContent
+      [ngClass]="{ 'text-position-when-spinner': showSpinner }"
+      class="text"
+      [ngbTooltip]="tipContent"
+      triggers="manual"
+      #t1="ngbTooltip"
+      (mouseover)="openTooltip(t1, spanContent)"
+      (mouseout)="closeTooltip(t1)"
+      tooltipClass="customize-tooltip"
+    >
+      {{ label   }}</span
+    > -->
+  </label>
+  

@@ -36,11 +36,16 @@ import { AddActorFormComponent } from './actor-list/core/add-actor-form/add-acto
 import { ActorCardComponent } from './actor-list/core/actor-card/actor-card.component';
 import { BannerComponent } from './core/components/banners/banner/banner.component';
 import { BannersComponent } from './core/components/banners/banners.component';
-import { PfdsFormComponent } from './core/shared/pfds-form/pfds-form.component';
+import { PfdsFormComponent } from './core/pfds-form/pfds-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { ChatComponent } from './chat/chat.component';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faComments, faFilePdf, faHouse, faPaperclip, faPersonCircleQuestion, faUser } from '@fortawesome/free-solid-svg-icons';
+import { ToggleSwitchComponent } from './core/components/toggle-switch/toggle-switch.component';
 
 
 @NgModule({
@@ -60,9 +65,12 @@ import { MatInputModule } from '@angular/material/input';
     BannerComponent,
     BannersComponent,
     PfdsFormComponent,
+    ChatComponent,
+    ToggleSwitchComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     StoreModule.forRoot({ actors: actorsReducer,counter: CounterReducer, notification: notificationReducer  }),
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -81,10 +89,20 @@ import { MatInputModule } from '@angular/material/input';
     ScrollingModule ,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FontAwesomeModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { constructor(library: FaIconLibrary) {
+  library.addIcons(
+    faPaperclip,
+    faFilePdf,
+    faHouse,
+    faComments,
+    faPersonCircleQuestion,
+    faUser
+  );
+} }

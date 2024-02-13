@@ -1,0 +1,370 @@
+@import "../../assets/scss/colors.scss";
+
+
+:host {
+    width: 100%;
+    display: block;
+    height: calc(100% - 67px);
+}
+.attachment {
+    font-size: 24px;
+    margin-left: 20px;
+    margin-top: 7px;
+    &.active {
+        color: $ail-gray ;
+    }
+    &.disabled {
+        color: $ail-purple;
+    }
+    &.question {
+        color: $ail-purple;
+     
+    }
+    &.answer {
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+
+
+$comment-container-height: 80px;
+form {
+  display: flex;
+}
+
+.chat-comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .chat-container {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid $line-separator-light-gray-color;
+    min-height: calc(100% - #{$comment-container-height});
+    overflow-y: auto;
+  }
+  .messages-wrapper {
+    height: 100%;
+    min-height: calc(100% - #{$comment-container-height});
+    display: flex;
+    flex-direction: column;
+    width: 674px;
+    .first {
+      margin-top: auto;
+    }
+    .only {
+      margin-top: auto;
+      padding-bottom: 20px;
+    }
+    .last {
+      padding-bottom: 20px;
+    }
+    .chat-box {
+      max-width: 450px;
+      width: fit-content;
+      min-width: 440px;
+      padding: 0 20px 20px 0;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &:not(.my-message) {
+        min-height: 100px;
+        background-color: $white;
+        border-left: 5px solid $ail-purple;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.3);
+        margin: 10px 0;
+      }
+      &.my-message {
+        min-height: 80px;
+        border-left: 5px solid $ail-purple;
+        background-color: rgba(65, 0, 140, 0.06);
+        float: right;
+        margin-top: 10px;
+      }
+      &.float-right-message {
+        float: right;
+        margin-top: 10px;
+      }
+      &.internal {
+        background-color: $chat-internal;
+        border-left: 5px solid $chat-internal-border;
+      }
+      &.automated {
+        background-color: $chat-automated;
+        border-left: 5px solid $ail-purple;
+        .user {
+          font-weight: 500;
+          font-style: italic;
+          color: $ail-silver;
+        }
+        .message {
+          white-space: pre-line;
+        }
+      }
+      &.uploading {
+        opacity: 0.4;
+      }
+      &.error {
+        background-color: #f5f7f7;
+        border-left: 5px solid #8e9aa0;
+        .message {
+          padding-top: 10px;
+          color: $ail-silver;
+          white-space: pre-line;
+          font-style: italic;
+          line-height: 1.43;
+          letter-spacing: 0.44px;
+        }
+        .error-message {
+          color: $ail-black;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          margin-left: auto;
+          margin-right: 0;
+        }
+      }
+
+      .user {
+        padding: 10px 0 0 20px;
+        // font-family: $ailBold;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.44px;
+        color: $dark-font-color;
+      }
+      .message {
+        padding-left: 20px;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.44px;
+        color: $dark-font-color;
+        word-break: break-word;
+      }
+      .date {
+        // font-family: $ailMedium;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        text-align: right;
+        color: $ail-silver;
+      }
+    }
+    .document {
+      max-width: 450px;
+      width: fit-content;
+      min-width: 440px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      .document-author {
+        padding: 10px 0 0 20px;
+        // font-family: $ailBold;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.44px;
+        // color: $dark-font-color;
+        color: $ail-silver;
+      }
+      .file-data-wrapper {
+        width: 100%;
+        app-icon {
+          padding: 18px 0 18px 31px;
+        }
+        .file-container {
+          display: flex;
+          flex-direction: column;
+          min-width: 385px;
+          padding-right: 20px;
+          padding-bottom: 20px;
+          .name {
+            line-height: 1.38;
+            letter-spacing: 0.5px;
+            // font-family: $ailBold;
+            font-size: 16px;
+            padding: 10px 0 0 14px;
+            text-overflow: ellipsis;
+            white-space: initial;
+            overflow: hidden;
+          }
+          .description {
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            // font-family: $ailRegular;
+            font-size: 12px;
+            font-weight: 500;
+            padding-left: 14px;
+          }
+          .date {
+            // font-family: $ailMedium;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-align: right;
+          }
+        }
+      }
+      &:not(.my-message) {
+        min-height: 60px;
+        background-color: $ail-purple;
+        border-left: 5px solid $ail-coral;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.3);
+        margin: 10px 0;
+        color: $white;
+        .file-container {
+          .name {
+            text-decoration: underline solid rgba(255, 255, 255, 0.6);
+          }
+          .description {
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+      &.internal {
+        background-color: $chat-internal;
+        border-left: 5px solid $chat-internal-border;
+        .file-container {
+          .name {
+            color: $ail-black;
+            text-decoration: underline solid $ail-black;
+          }
+          .date {
+            color: $ail-silver;
+          }
+        }
+      }
+      &.my-message {
+        min-height: 60px;
+        border-left: 5px solid $ail-purple;
+        background-color: rgba(65, 0, 140, 0.06);
+        float: right;
+        margin-top: 10px;
+        .file-container {
+          .name {
+            color: $ail-purple;
+            text-decoration: underline solid $ail-purple;
+          }
+          .description {
+            color: $ail-silver;
+          }
+          .date {
+            color: $ail-silver;
+          }
+        }
+      }
+      &.internal {
+        background-color: $chat-internal;
+        border-left: 5px solid $chat-internal-border;
+        .file-container {
+          .name {
+            color: $ail-black;
+            text-decoration: underline solid $ail-black;
+          }
+          .description {
+            color: $ail-black;
+          }
+        }
+      }
+      &.uploading {
+        text-transform: uppercase;
+        background-color: #ffffff;
+        app-icon {
+          padding: 18px 0 18px 31px;
+        }
+        label {
+          font-size: 12px;
+          padding: 24px 0 0 14px;
+          color: $ail-black;
+          letter-spacing: 0.5px;
+          font-weight: 500;
+        }
+      }
+      &.float-right-message {
+        float: right;
+        margin-top: 10px;
+      }
+    }
+  }
+  .comment-wrapper {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 674px;
+    margin-left: auto;
+    margin-right: 0px;
+    .comment-field {
+      width: 515px;
+      @media only screen and (max-width:1439) {
+        width: 27vw;
+      }
+    }
+    .send-btn {
+      display: flex;
+      width: 138px;
+      height: 35px;
+      background-color: white;
+      border-radius: 2px;
+      border: solid 1.5px $ail-coral;
+      color: $ail-coral;
+      font-size: 17px;
+      // font-family: $ailMedium;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      margin-left: 20px;
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+      }
+      ::ng-deep app-spinner .spinner {
+        height: 40px;
+        top: 3px;
+      }
+    }
+  }
+  .toggle-documents-only {
+    display: flex;
+    align-items: center;
+    width: 140px;
+    margin-left: 30px;
+    margin-right: 20px;
+    label {
+      margin-left: 20px;
+      line-height: 1.43;
+      letter-spacing: 0.44px;
+      // font-family: $ailRegular;
+      color: $ail-silver;
+      font-size: 14px;
+    }
+  }
+  .attach-icon {
+    padding-top: 29px;
+    margin-left: 40px;
+    margin-right: auto;
+    padding-right: 130px;
+    app-icon {
+      cursor: pointer;
+      &.disabled-icon {
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+    label {
+      padding-left: 10px;
+      font-size: 12px;
+      letter-spacing: 0.38px;
+      color: $ail-silver;
+    }
+    @media only screen and (max-width: 1439) {
+      padding-right: 0;
+    }
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
+    &.warning-label {
+      padding-right: 80px;
+    }
+  }
+}

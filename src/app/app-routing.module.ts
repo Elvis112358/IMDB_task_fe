@@ -5,7 +5,8 @@ import { AllMoviesComponent } from './movies/components/all-movies/all-movies.co
 import { FavMoviesComponent } from './movies/components/fav-movies/fav-movies.component';
 import { ActorListComponent } from './actor-list/actor-list.component';
 import { BannersComponent } from './core/components/banners/banners.component';
-import { PfdsFormComponent } from './core/shared/pfds-form/pfds-form.component';
+import { PfdsFormComponent } from './core/pfds-form/pfds-form.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'banners',
     component: BannersComponent,
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
   },
   {
     path: 'all-movies',

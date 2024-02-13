@@ -6,6 +6,11 @@ export const UserNavigationItems = [
         route: 'banners'
     },
     {
+        displayName: 'WS Chat',
+        iconName: 'chat',
+        route: 'chat'
+    },
+    {
         displayName: 'Top 10 Movies',
         iconName: 'movies',
         route: 'top-movies'

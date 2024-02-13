@@ -1,0 +1,87 @@
+<div class="chat-comment-wrapper">
+  <div #scrollMe class="chat-container">
+    <div class="messages-wrapper">
+      <div *ngFor="let comment of messages; let i = index" [ngClass]="cssCommentsClasses(i)">
+        <div *ngIf="!comment.documents && !comment.auto">
+          <div class="chat-box" [ngClass]="cssCommentAlignmentClasses(comment)">
+            <div class="user" *ngIf="!comment.error">
+              {{
+              comment.author.firstName + " " + comment.author.lastName
+              }}
+            </div>
+            <div class="message">
+              {{ comment.description }}
+            </div>
+            <div class="date">
+              {{ comment.createdDate | date: "yyyy/MM/dd, h:mm a" }}
+            </div>
+            <div class="error-message" *ngIf="comment.error">
+              {{ "lbl-message-not-sent" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="comment.auto">
+          <div class="chat-box" [ngClass]="cssCommentAlignmentClasses(comment)">
+            <div class="user">
+              {{ "lbl-automated-message" }}
+            </div>
+            <div class="message">
+              {{ comment.description }}
+            </div>
+            <div class="date">
+              {{ comment.createdDate | date: "yyyy/MM/dd, h:mm a" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="comment.documents" class="document" [ngClass]="cssCommentAlignmentClasses(comment)">
+          <div class="document-author">
+            {{
+              comment.author ? comment.author.firstName + " " + comment.author.lastName : ''
+            }}
+          </div>
+          <div *ngIf="!comment.uploading" class="d-flex file-data-wrapper">
+            <fa-icon [icon]="['fas', 'file-pdf']" class="attachment"></fa-icon>
+            <div class="file-container">
+              <span class="name">{{ comment.documents[0].documentName}}</span>
+              <div class="date">
+                {{ comment.createdDate | date: "yyyy/MM/dd, h:mm a" }}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="comment.uploading" class="d-flex">
+            <fa-icon [icon]="['fas', 'file-pdf']" class="attachment"></fa-icon>
+            <label>{{ "lbl-uploading"   }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="chatForm" (submit)="submit()">
+    <div class="toggle-documents-only">
+      <div *ngIf="showDocumentsToggle" class="d-flex">
+        <app-toggle-switch (valueChanged)="toggleFilter($event)"></app-toggle-switch>
+        <label>{{ "Docs Only"   }}</label>
+      </div>
+    </div>
+    <div class="comment-wrapper">
+      <input class="comment-field" formControlName="comment">
+      <button class="btn send-btn" [ngClass]="{
+            disabled: false
+          }" type="submit">
+        <span *ngIf="!loading">{{ "lbl-send"   }}</span>
+      </button>
+    </div>
+    <div class="d-flex attach-icon">
+      <fa-icon [icon]="['fas', 'paperclip']" (click)="file.click()"
+      [ngClass]="{ 'disabled-icon': isClosedStatus }"></fa-icon>
+      <input
+        formControlName="file"
+        hidden
+        type="file"
+        #file
+        multiple
+        (change)="fileBrowseHandler(file.files)"
+        />
+    </div>
+  </form>
+</div>
