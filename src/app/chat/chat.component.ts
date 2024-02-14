@@ -4,95 +4,94 @@ import { maxNumOfChars } from '../core/shared/constants/const';
 import { convertMbToBytes } from '../core/shared/helper';
 // import * as feather from 'feather-icons';
 
-
-const messages =  [
-  {
-    "documents": null,
-    "author": {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "question": true,
-    "external": false,
-    "description": "This is a sample comment 1",
-    "createdDate": "2023-09-07T10:30:00"
-  },
-  {
-    "documents": null,
-    "author": {
-      "id": 2,
-      "firstName": "Alice",
-      "lastName": "Smith"
-    },
-    "error": false,
-    "external": true,
-    "description": "This is a sample comment 2",
-    "createdDate": "2023-09-07T11:15:00"
-  },
-  {
-    "documents": null,
-    "auto": true,
-    "author": null,
-    "error": false,
-    "external": false,
-    "description": "This is an automated message",
-    "createdDate": "2023-09-07T12:00:00"
-  },
-  {
-    "documents": [
-      {
-        "id": 1,
-        "documentName": "Sample Document.pdf"
-      }
-    ],
-    "auto": false,
-    "author": {
-      "id": 3,
-      "firstName": "Eva",
-      "lastName": "Johnson"
-    },
-    "question": true,
-    "error": false,
-    "external": false,
-    "description": "This is a comment with a document",
-    "createdDate": "2023-09-07T13:45:00",
-    "uploading": false
-  },
-  {
-    "documents": [
-      {
-        "id": 1,
-        "documentName": "Sample Document.pdf"
-      }
-    ],
-    "auto": false,
-    "author": {
-      "id": 3,
-      "firstName": "Eva",
-      "lastName": "Johnson"
-    },
-    "question": false,
-    "error": false,
-    "external": false,
-    "description": "This is a comment with a document",
-    "createdDate": "2023-09-07T13:45:00",
-    "uploading": false
-  },
-  {
-    "documents": null,
-    "auto": false,
-    "author": {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "error": true,
-    "external": false,
-    "description": "This is a comment with an error",
-    "createdDate": "2023-09-07T14:30:00"
-  }
-];
+// const messages =  [
+//   {
+//     "documents": null,
+//     "author": {
+//       "id": 1,
+//       "firstName": "John",
+//       "lastName": "Doe"
+//     },
+//     "question": true,
+//     "external": false,
+//     "description": "This is a sample comment 1",
+//     "createdDate": "2023-09-07T10:30:00"
+//   },
+//   {
+//     "documents": null,
+//     "author": {
+//       "id": 2,
+//       "firstName": "Alice",
+//       "lastName": "Smith"
+//     },
+//     "error": false,
+//     "external": true,
+//     "description": "This is a sample comment 2",
+//     "createdDate": "2023-09-07T11:15:00"
+//   },
+//   {
+//     "documents": null,
+//     "auto": true,
+//     "author": null,
+//     "error": false,
+//     "external": false,
+//     "description": "This is an automated message",
+//     "createdDate": "2023-09-07T12:00:00"
+//   },
+//   {
+//     "documents": [
+//       {
+//         "id": 1,
+//         "documentName": "Sample Document.pdf"
+//       }
+//     ],
+//     "auto": false,
+//     "author": {
+//       "id": 3,
+//       "firstName": "Eva",
+//       "lastName": "Johnson"
+//     },
+//     "question": true,
+//     "error": false,
+//     "external": false,
+//     "description": "This is a comment with a document",
+//     "createdDate": "2023-09-07T13:45:00",
+//     "uploading": false
+//   },
+//   {
+//     "documents": [
+//       {
+//         "id": 1,
+//         "documentName": "Sample Document.pdf"
+//       }
+//     ],
+//     "auto": false,
+//     "author": {
+//       "id": 3,
+//       "firstName": "Eva",
+//       "lastName": "Johnson"
+//     },
+//     "question": false,
+//     "error": false,
+//     "external": false,
+//     "description": "This is a comment with a document",
+//     "createdDate": "2023-09-07T13:45:00",
+//     "uploading": false
+//   },
+//   {
+//     "documents": null,
+//     "auto": false,
+//     "author": {
+//       "id": 1,
+//       "firstName": "John",
+//       "lastName": "Doe"
+//     },
+//     "error": true,
+//     "external": false,
+//     "description": "This is a comment with an error",
+//     "createdDate": "2023-09-07T14:30:00"
+//   }
+// ];
 
 @Component({
   selector: 'app-chat',
@@ -116,7 +115,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
   disableButton = false;
   files: any[] = [];
   onlyDocuments: boolean = false;
-  @Input() messages: any[] = messages;
+  @Input() messages: any[] = []
   @Input() disableComments: boolean = false;
   @Input() showAttachDocuments: boolean = true;
   @Input() isClosedStatus: boolean = false;

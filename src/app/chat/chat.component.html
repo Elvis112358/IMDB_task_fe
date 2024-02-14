@@ -16,7 +16,7 @@
               {{ comment.createdDate | date: "yyyy/MM/dd, h:mm a" }}
             </div>
             <div class="error-message" *ngIf="comment.error">
-              {{ "lbl-message-not-sent" }}
+              {{ "Message not sent!" }}
             </div>
           </div>
         </div>
@@ -57,18 +57,18 @@
     </div>
   </div>
   <form [formGroup]="chatForm" (submit)="submit()">
-    <div class="toggle-documents-only">
+    <!-- <div class="toggle-documents-only">
       <div *ngIf="showDocumentsToggle" class="d-flex">
         <app-toggle-switch (valueChanged)="toggleFilter($event)"></app-toggle-switch>
-        <label>{{ "Docs Only"   }}</label>
+        <label>{{ "Docs Only" }}</label>
       </div>
-    </div>
+    </div> -->
     <div class="comment-wrapper">
       <input class="comment-field" formControlName="comment">
       <button class="btn send-btn" [ngClass]="{
             disabled: false
           }" type="submit">
-        <span *ngIf="!loading">{{ "lbl-send"   }}</span>
+        <span *ngIf="!loading">{{ "Send" }}</span>
       </button>
     </div>
     <div class="d-flex attach-icon">

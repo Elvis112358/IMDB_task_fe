@@ -45,7 +45,6 @@ import { CommonModule } from '@angular/common';
 import { ChatComponent } from './chat/chat.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faComments, faFilePdf, faHouse, faPaperclip, faPersonCircleQuestion, faUser } from '@fortawesome/free-solid-svg-icons';
-import { ToggleSwitchComponent } from './core/components/toggle-switch/toggle-switch.component';
 
 
 @NgModule({
@@ -65,8 +64,7 @@ import { ToggleSwitchComponent } from './core/components/toggle-switch/toggle-sw
     BannerComponent,
     BannersComponent,
     PfdsFormComponent,
-    ChatComponent,
-    ToggleSwitchComponent
+    ChatComponent
   ],
   imports: [
     BrowserModule,

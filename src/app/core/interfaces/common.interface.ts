@@ -73,8 +73,19 @@ export interface Banner {
     image: string;
 }
 
+export interface Message {
+	clientId: string;
+	message: string;
+	sentAt: Date;
+}
 
+export type EventType = 'message' | 'connect' | 'disconnect';
+export interface WsMessageContent {}
 
+export interface SubscriptionEvent<TBody = unknown> extends WsMessageContent {
+	eventType: EventType;
+	body: TBody;
+}
 export interface FlowDescription {
   isThisNestedFlowDescriptionOpen: FormControl<boolean | null>,
   // In Form initalization
@@ -109,12 +120,6 @@ export interface PfdFormValues {
 export interface IPfdsForm extends FormArray{
   pfds: FormArray<FormGroup<PfdFormValues | null>>
 }
-
-
-
-
-
-
 
 
 export interface IPfdAttribute {
