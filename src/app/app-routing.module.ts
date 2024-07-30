@@ -7,6 +7,7 @@ import { ActorListComponent } from './actor-list/actor-list.component';
 import { BannersComponent } from './core/components/banners/banners.component';
 import { PfdsFormComponent } from './core/pfds-form/pfds-form.component';
 import { ChatComponent } from './chat/chat.component';
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'form-example', 
     component: PfdsFormComponent
+  },
+  {
+    path: 'google-maps', 
+    component: GoogleMapsComponent
   }
   // {
   //   path: 'sorting',

@@ -45,6 +45,7 @@ import { CommonModule } from '@angular/common';
 import { ChatComponent } from './chat/chat.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faComments, faFilePdf, faHouse, faPaperclip, faPersonCircleQuestion, faUser } from '@fortawesome/free-solid-svg-icons';
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { faComments, faFilePdf, faHouse, faPaperclip, faPersonCircleQuestion, fa
     BannerComponent,
     BannersComponent,
     PfdsFormComponent,
-    ChatComponent
+    ChatComponent,
+    GoogleMapsComponent
   ],
   imports: [
     BrowserModule,

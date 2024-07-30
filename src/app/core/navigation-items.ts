@@ -44,6 +44,11 @@ export const UserNavigationItems = [
         displayName: 'Form',
         iconName: 'rocket',
         route: 'form-example'
+    },
+    {
+        displayName: 'Google Heat Maps',
+        iconName: 'rocket',
+        route: 'google-maps'
     }
 ];
 
