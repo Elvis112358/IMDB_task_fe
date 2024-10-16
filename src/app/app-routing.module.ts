@@ -8,6 +8,7 @@ import { BannersComponent } from './core/components/banners/banners.component';
 import { PfdsFormComponent } from './core/pfds-form/pfds-form.component';
 import { ChatComponent } from './chat/chat.component';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
+import { LeafletMapsComponent } from './leaflet-maps/leaflet-maps.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'google-maps', 
     component: GoogleMapsComponent
+  },
+  {
+    path: 'leaflet-maps', 
+    component: LeafletMapsComponent
   }
   // {
   //   path: 'sorting',

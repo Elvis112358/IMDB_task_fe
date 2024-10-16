@@ -32,11 +32,17 @@
                 "glob": "**/*",
                 "input": "./node_modules/@elvis11235/ngx-generic-table/assets",
                 "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "assets/"
               }
             ],
             "styles": [
               "src/assets/scss/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/leaflet-heatmap/leaflet-heatmap.css"
             ],
             "scripts": []
           },

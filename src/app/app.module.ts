@@ -46,6 +46,8 @@ import { ChatComponent } from './chat/chat.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faComments, faFilePdf, faHouse, faPaperclip, faPersonCircleQuestion, faUser } from '@fortawesome/free-solid-svg-icons';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMapsComponent } from './leaflet-maps/leaflet-maps.component';
 
 
 @NgModule({
@@ -66,7 +68,8 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
     BannersComponent,
     PfdsFormComponent,
     ChatComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    LeafletMapsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LeafletModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: HttpCustomInterceptor, multi: true },
     SpinnerService,],

@@ -49,6 +49,11 @@ export const UserNavigationItems = [
         displayName: 'Google Heat Maps',
         iconName: 'rocket',
         route: 'google-maps'
+    },
+    {
+        displayName: 'Leaflet Heat Maps',
+        iconName: 'rocket',
+        route: 'leaflet-maps'
     }
 ];
 

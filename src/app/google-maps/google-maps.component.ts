@@ -64,7 +64,7 @@ export class GoogleMapsComponent implements AfterViewInit {
           let thisColor = this.colormap(feature.getProperty('earthquakeNumber') / max);
           return {
             fillColor: thisColor,
-            strokeWeight: 0.1
+            strokeWeight: 0
           };
         });
       });

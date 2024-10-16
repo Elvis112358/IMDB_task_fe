@@ -38,6 +38,7 @@ $imdb_task_fe-theme: mat.define-light-theme((
 @import "components/main.scss";
 
 @import "../../../node_modules/@elvis11235/ngx-generic-table/styles/styles.scss";
+@import "~leaflet/dist/leaflet.css";
 
 html,
 body {
@@ -71,3 +72,9 @@ body {
         width: 100%;
     }
 }
+.map-container {
+    // height: 400px;
+    position: absolute;
+    top: 0;
+    height: 100%; width: 100%
+  }

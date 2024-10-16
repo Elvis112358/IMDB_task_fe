@@ -1,0 +1,15 @@
+<div #map class="map-container"
+  leaflet
+  [leafletOptions]="options"
+  (leafletMapReady)="onMapReady($event)"
+  (leafletClick)="mapClicked($event)">
+</div>
+<button class="cell" (click)="cellEnableDisable()">
+    Cell
+</button>
+<button class="proximity" (click)="proximityEnableDisable()">
+    Proximity
+</button>
+<button class="weighted" (click)="cellEnableDisable()">
+    Weighted
+</button>
